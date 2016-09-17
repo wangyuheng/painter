@@ -1,0 +1,218 @@
+@charset "utf-8";
+/*-------------------------------------------reset------------------------------------------------*/
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+input,
+textarea,
+p,
+blockquote,
+th,
+td {
+	margin:0;
+	padding:0;
+}
+fieldset,
+img {
+	border:0;
+}
+li {
+	list-style:none;
+}
+
+
+/*-------------------------------------base.css-------------------------------------------*/
+/*文字排版*/
+.f12{font-size:12px;}
+.f14{font-size:14px;}
+.fb{font-weight:bold;}
+.fn{font-weight:normal;}
+.t2{text-indent:2em;}
+.unl,a.unl,body a.unl,body *.unl,body a.unl:link,body a.unl:visited{text-decoration:underline;}
+.no_unl{text-decoration:none;}
+.recommend .no_unl{text-decoration:none;}
+.yahei{font-family:"\5FAE\8F6F\96C5\9ED1";}
+.ma{ margin:0 auto;}
+/*定位*/
+.tl{text-align:left;}
+.tc{text-align:center;}
+.tr{text-align:right;}
+.bc{margin-left:auto;margin-right:auto;}
+/*
+	fl包含display inline  是为了解决ie6双边距  
+	如果.fl用在ul(可能还有别的标签)标签上会出现类似text-indent的bug  
+	可以通过给li标签浮动修正 或者覆盖掉此处的display属性
+*/
+.fl{float:left;display:inline;}
+.fr{float:right;display:inline;}
+.cb{clear:both;}
+.cl{clear:left;}
+.cr{clear:right;}
+/*
+	不加block在标准浏览器中无法清除ie6、7可以但下面多一像素
+	height:0px;时ie6中无法清除(给浮动块margin可以看出)
+*/
+.clear{clear:both;overflow:hidden;display:block;height:0px;_height:1px;}
+/*
+	clearfix清除浮动后在ie6、7中会忽略浮动框的margin-bottom
+	并且偶尔会由于layout被激活而出现一些bug  如多出间隙等
+	此时可以使用.clear来避免这种bug 或者两者结合使用
+*/
+.clearfix:after{content:'.';display:block;height:0;clear:both;visibility:hidden;}
+.clearfix{*zoom:1;}
+.clearfix .clear{_height:0px;}
+/*
+	一般情况下使用clearfix即可
+	出现忽略margin等情况是clearfix与clear一起使用
+	单独使用clear一般可以清除浮动，但ie6会多一个像素
+*/
+.vm{vertical-align:middle;}
+/*解决图片 文字标签 表单 垂直对齐问题*/
+.vms{vertical-align:middle;display:inline-block;}
+/*ie空隙bug*/
+.vb_{_vertical-align:bottom;}
+.vb{vertical-align:bottom;}
+.vt{vertical-align:top;}
+.pr{position:relative;}
+.pa{position:absolute;}
+.abs-right{position:absolute;right:0;}
+.zoom{zoom:1;}
+.hidden{visibility:hidden;}
+/* 去除button私有属性，解决FF中按钮文字偏下的BUG  */
+button::-moz-focus-inner, input[type="reset"]::-moz-focus-inner, input[type="button"]::-moz-focus-inner, input[type="submit"]::-moz-focus-inner, input[type="file"] > input[type="button"]::-moz-focus-inner {border:none /*去虚线框*/;padding:0;}
+
+/*
+	block 如img标签有时需要此class来消除空行
+*/
+.block{display:block;}
+.none{display:none;}
+/*
+	常用的变量css可以在项目css中写出
+	如：.w10{width:10px;}
+		.m10{margin:10px;}
+		.p10{padding:10px;}
+	可在项目中给出语义化class名
+	如：.wNormal{width:100px;}
+		.wPage{width:950px;}
+	等..
+*/
+/*
+	其它需要的在项目css中写出
+	height等使用较少，这里不给出
+	边距提供0 5 10 15 20
+	宽度提供 10 20 30 40 50 100 150 200 250 300 350 400 450 500 600 700 800 900 1000
+	p放在前面 pl,pr,pt,pb等放在后面 便于覆盖
+*/
+/*width*/
+.w10{width:10px;}
+.w20{width:20px;}
+.w30{width:30px;}
+.w40{width:40px;}
+.w50{width:50px;}
+.w100{width:100px;}
+.w150{width:150px;}
+.w200{width:200px;}
+.w250{width:250px;}
+.w300{width:300px;}
+.w350{width:350px;}
+.w400{width:400px;}
+.w450{width:450px;}
+.w500{width:500px;}
+.w600{width:600px;}
+.w700{width:700px;}
+.w800{width:800px;}
+.w900{width:900px;}
+/*添加常见页面宽度*/
+.w950{width:950px;}
+.w960{width:960px;}
+.w1000{width:1000px;}
+
+.w1200{width:1200px;}
+.w1160{width:1600px;}
+/*padding*/
+.p5{padding:5px;}
+.p10{padding:10px;}
+.p15{padding:15px;}
+.p20{padding:20px;}
+.pl0{padding-left:0;}
+.pl5{padding-left:5px;}
+.pl10{padding-left:10px;}
+.pl15{padding-left:15px;}
+.pl20{padding-left:20px;}
+.pr0{padding-right:0;}
+.pr5{padding-right:5px;}
+.pr10{padding-right:10px;}
+.pr15{padding-right:15px;}
+.pr20{padding-right:20px;}
+.pr50{padding-right:50px;}
+.pr55{padding-right:55px;}
+.pt0{padding-top:0;}
+.pt5{padding-top:5px;}
+.pt10{padding-top:10px;}
+.pt15{padding-top:15px;}
+.pt20{padding-top:20px;}
+.pb0{padding-bottom:0;}
+.pb5{padding-bottom:5px;}
+.pb10{padding-bottom:10px;}
+.pb15{padding-bottom:15px;}
+.pb20{padding-bottom:20px;}
+/*margin*/
+.m5{margin:5px;}
+.m10{margin:10px;}
+.m15{margin:15px;}
+.m20{margin:20px;}
+.ml0{margin-left:0;}
+.ml5{margin-left:5px;}
+.ml10{margin-left:10px;}
+.ml15{margin-left:15px;}
+.ml20{margin-left:20px;}
+.ml30{margin-left:30px;}
+.ml40{margin-left:40px;}
+.mr0{margin-right:0;}
+.mr5{margin-right:5px;}
+.mr10{margin-right:10px;}
+.mr15{margin-right:15px;}
+.mr20{margin-right:20px;}
+.mr30{ margin-right:30px;}
+.mt0{margin-top:0;}
+.mt4{margin-top:4px;}
+.mt5{margin-top:5px;}
+.mt10{margin-top:10px;}
+.mt15{margin-top:15px;}
+.mt20{margin-top:20px;}
+.mt25{margin-top:25px;}
+.mt30{margin-top:30px;}
+.mt80{margin-top:80px;}
+.mb0{margin-bottom:0;}
+.mb5{margin-bottom:5px;}
+.mb10{margin-bottom:10px;}
+.mb15{margin-bottom:15px;}
+.mb20{margin-bottom:20px;}
+/*line-height*/
+.lh24{line-height:24px;}
+.lh18{line-height:18px;}
+.lh_16{line-height:1.6em;}
+.lh_2{line-height:2em;}
+/**/
+.ovh{overflow:hidden;}
+/*去掉chrome浏览器表单焦点效果 textarea拖动大小特性*/
+input,button,select,textarea{ outline:none;} 
+textarea{ resize:none;}
+
+.hd{ cursor:pointer;}

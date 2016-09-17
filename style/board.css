@@ -1,0 +1,382 @@
+@charset "utf-8";
+
+.container{
+	font-size:12px;
+    line-height:1.5;
+	font-family: arial,'\5fae\8f6f\96c5\9ed1','\5b8b\4f53';
+}
+
+.container-wrap{
+	width:1200px;
+	margin:0 auto;
+}
+
+.title-bar{
+	margin-top: 14px;
+	line-height:42px;
+	margin-bottom:18px;
+	overflow:hidden;
+}
+.title-bar .title{
+	font-size:24px;
+	color:#3e91eb;
+}
+
+
+.board{
+	border:1px solid #d3d3d3;
+	min-height:500px;
+}
+.float-toolbar{
+
+}
+
+
+/* 工具栏
+-------------------------------------------------------------- */
+.board .main-toolbar{
+	padding:14px 0;
+	height:100px;
+	border-bottom:1px solid #d3d3d3;
+	background:url(img/board/board-bg.png) repeat-x;
+}
+
+.board-panel{
+	float:left;
+	padding:0 13px;
+	border-right:1px solid #d3d3d3;
+	height:100px;
+}
+.board-panel.last{
+	border:0;
+}
+
+.board-icon {
+	height:72px;
+	margin-bottom:6px;
+	position:relative;
+}
+.board-icon li{
+	float:left;
+	margin:1px;
+	width:34px;
+	height:34px;
+	cursor:default;
+}
+.board-icon li.icon-size-2{
+	width:70px;
+	height:34px;
+}
+.board-icon li.icon-size-3{
+	width:55px;
+	height:100px;
+}
+.board-icon li.icon-size-4{
+	width:60px;
+	height:100px;
+}
+.board-icon li:hover{
+	background:url(img/board/hover-bg-1.png) no-repeat;
+}
+.board-icon li.icon-size-2:hover{
+	background:url(img/board/hover-bg-2.png) no-repeat;
+}
+.board-icon li.icon-size-3:hover{
+	background:url(img/board/hover-bg-3.png) no-repeat;
+}
+.board-icon li.icon-size-4:hover{
+	background:url(img/board/hover-bg-4.png) no-repeat;
+}
+
+
+.board-icon li.active{
+	background:url(img/board/active-bg-1.png) no-repeat;
+}
+.board-icon li.icon-size-2.active{
+	background:url(img/board/active-bg-2.png) no-repeat;
+}
+.board-icon li.icon-size-3.active{
+	background:url(img/board/active-bg-3.png) no-repeat;
+}
+.board-icon li.icon-size-4:hover{
+	background:url(img/board/hover-bg-4.png) no-repeat;
+}
+
+.board-panel.tool .clear-screen{
+	width:48px;
+	height:70px;
+	position:absolute;
+	right:0;
+	top:0;
+}
+.board-panel.tool .clear-screen:hover{
+	background:url(img/board/hover-bg-clear.png) no-repeat;
+}
+
+.board-text{
+	font-size:14px;
+	text-align:center;
+	color:#999;
+}
+.board-panel.tool{
+	width:192px;
+}
+.board-panel.tool ul{
+	width:144px;
+}
+.board-panel.shape{
+	width:165px;
+}
+.board-panel.layer{
+	width:72px;
+}
+.board-panel.color{
+	width:370px;
+}
+.board-panel.font{
+	width:150px;
+}
+.board-panel.size{
+	width:82px;
+}
+
+/* 形状
+-------------------------------------------------------------- */
+.shape-left{
+	float:left;
+	width:108px;
+}
+.shape-right{
+	position:absolute;
+	right:0;
+	top:0;
+	width:57px;
+}
+
+.shape-right .line-style{
+	padding:10px 1px;
+	width:106px;
+	border:1px solid #d2d4d1;
+	background:#fff;
+	display:none;
+}
+.shape-right .line-style dd{
+	display:table;
+	height:16px;
+	width:106px;
+	overflow:hidden;
+}
+.shape-right .line-style dd:hover{
+	background:url(img/board/line-style_hover.png) no-repeat;
+}
+
+.shape-right .line-style dd.active{
+	background:url(img/board/line-style_active.png) no-repeat;
+}
+.shape-right .line-style .line-inner{
+	display: table-cell;
+    vertical-align: middle;
+}
+
+.shape-right .line-style span{
+	display:block;
+	background:#5b5b5b;
+}
+
+.shape-right .line-style .h2 span{
+	height:2px;
+}
+.shape-right .line-style .h3 span{
+	height:3px;
+}
+.shape-right .line-style .h4 span{
+	height:4px;
+}
+.shape-right .line-style .h5 span{
+	height:5px;
+}
+
+/* 颜色
+-------------------------------------------------------------- */
+.color-left,.color-middle,.color-right{
+	float:left;
+}
+.color-left{
+	width:72px;
+	margin-right:10px;
+}
+.color-left li{
+	height:33px;
+}
+.color-left .color-block{
+	float:left;
+	margin:6px 0 0 7px;
+	border:1px solid #c5c5c7;
+	background:#fff;
+}
+.color-left .color-block span{
+	float:left;
+	width:19px;
+	height:19px;
+	margin:1px;
+}
+.color-left .color-text{
+	float:right;
+	width:24px;
+	line-height:14px;
+	margin:4px 7px 0 0;
+	color:#5483b7;
+}
+
+/*.color-middle{
+	width:222px;
+}
+.color-middle li{
+	width:20px;
+	height:20px;
+	margin:0 2px 5px 0;
+}
+.color-middle li:hover{
+	background:none;
+}
+
+.color-middle .color-block{
+	float:left;
+	border:1px solid #c5c5c7;
+}
+.color-middle li:hover .color-block{
+	border-color:#f29536;
+}
+.color-middle li.blank:hover .color-block{
+	border-color:#c5c5c7;
+}
+.color-middle .color-block span{
+	float:left;
+	width:16px;
+	height:16px;
+	border:1px solid #fff;
+}*/
+.color-right{
+	width:60px;
+	position:absolute;
+	right:0;
+	top:0;
+}
+.color-edit{
+	text-align:center;
+}
+.color-edit i{
+	display:block;
+	width:30px;
+	height:30px;
+	margin:5px auto 17px auto;
+	background:url(img/board/board-colorEdit.png) no-repeat;
+}
+.color-edit p{
+	color:#5681b4;
+}
+
+/* 表单
+-------------------------------------------------------------- */
+.board-form{
+	height:72px;
+	margin-bottom:6px;
+}
+
+.board-form .text-tool{
+	display:inline-block;
+	width:34px;
+	height:34px;
+	vertical-align:middle;
+}
+.board-form .text-tool:hover{
+	background:url(img/board/active-bg-1.png) no-repeat;
+}
+
+.board-form .form-row{
+	margin-bottom:10px;
+}
+.board-form .font-style{
+	display:inline-block;
+	vertical-align:middle;
+}
+.board-form .font-style li{
+	float:left;
+	width:21px;
+	height:22px;
+	background:url(img/board/font-style.png) no-repeat;
+}
+
+.board-form .font-style li.b{
+	width:22px;
+	background-position:0 0;
+}
+.board-form .font-style li.i{
+	background-position:-32px 0;
+}
+.board-form .font-style li.u{
+	background-position:-63px 0;
+}
+.board-form .font-style li.abc{
+	background-position:-94px 0;
+}
+
+.board-form .font-style li.b:hover{	
+	background-position:0 -32px;
+}
+.board-form .font-style li.i:hover{
+	background-position:-32px -32px;
+}
+.board-form .font-style li.u:hover{
+	background-position:-63px -32px;
+}
+.board-form .font-style li.abc:hover{
+	background-position:-94px -32px;
+}
+
+.board-form .font-style li.b.active{	
+	background-position:0 -64px;
+}
+.board-form .font-style li.i.active{
+	background-position:-32px -64px;
+}
+.board-form .font-style li.u.active{
+	background-position:-63px -64px;
+}
+.board-form .font-style li.abc.active{
+	background-position:-94px -64px;
+}
+
+.board-form .canvas-size{
+	overflow:hidden;
+	display: none;
+}
+.board-form .canvas-size .label{
+	float:left;
+	width:30px;
+	font-size:14px;
+	text-align:right;
+	line-height:22px;
+	color:#666;
+}
+.board-form .canvas-size input{
+	float:left;
+	padding:0 6px;
+	width:31px;
+	font-size:14px;
+	height:20px;
+	line-height:20px;
+	border:1px solid #95bae4;
+	color:#666;
+}
+
+
+.sp-container {
+	z-index: 0;
+}
+#tool_undo  {
+	opacity: 0.2;
+}
+#tool_redo {
+	opacity: 0.2;
+}

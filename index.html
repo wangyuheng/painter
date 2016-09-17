@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="Keywords" content="svg, painter, drawing board" />
+    <meta name="Description" content="This is a svg painter!" />
+    <meta http-equiv="Cache-control" content="no-cache" />
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0" />
+    <title>Painter</title>
+    <link rel="stylesheet" href="style/normalize.css">
+    <link rel="stylesheet" href="style/base.css">
+    <link rel="stylesheet" href="style/board.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="container-wrap">
+            <div class="title-bar">
+                <span class="title"><h1>Painter</h1></span>
+            </div>
+            <div class="board">
+                <div class="main-toolbar">
+                    <div class="board-panel tool">
+                        <div class="board-icon clearfix">
+                            <input type="hidden" id="tool_cancel" />
+                            <ul>
+                                <li id="tool_save"><img src="style/img/icon-1.png" alt="保存图片" title="保存图片 (Ctrl+s)" /></li>
+                                <li id="tool_undo"><img src="style/img/icon-2.png" alt="撤销" title="撤销 (Ctrl+z)" /></li>
+                                <li id="tool_redo"><img src="style/img/icon-3.png" alt="重做" title="重做 (Ctrl+y)" /></li>
+                                <li id="tool_delete"><img src="style/img/icon-4.png" alt="删除" title="删除 (Delete)" /></li>
+                                <li class="handle_btn" id="tool_pick"><img src="style/img/icon-18.png" alt="选择" title="选择" /></li>
+                                <li class="handle_btn" title="上传图片 (Ctrl+O)" id="tt">
+                                    <img src="style/img/icon-5.png" alt="图片" title="图片" /></li>
+                                <li class="handle_btn" id="tool_pencil"><img src="style/img/icon-6.png" alt="铅笔" title="铅笔" /></li>
+                                <li class="handle_btn" id="tool_fill"><img src="style/img/icon-8.png" alt="画布颜色" title="画布颜色" /></li>
+                            </ul>
+                            <div class="clear-screen" id="clear_all"><img src="style/img/icon-20.png" alt="" /></div>
+                        </div>
+                        <p class="board-text">工具</p>
+                    </div>
+                    <div class="board-panel shape">
+                        <div class="board-icon clearfix">
+                            <ul class="shape-left">
+                                <li class="handle_btn" id="tool_rect"><img src="style/img/icon-9.png" alt="矩形" title="矩形" /></li>
+                                <li class="handle_btn icon-size-2" id="tool_ellipse"><img src="style/img/icon-10.png" alt="椭圆" title="椭圆" /></li>
+                                <li class="handle_btn" id="tool_circle"><img src="style/img/icon-19.png" alt="圆形" title="圆形" /></li>
+                                <li class="handle_btn" id="tool_line"><img src="style/img/icon-11.png" alt="直线" title="直线" /></li>
+                                <li class="handle_btn" id="tool_polyline"><img src="style/img/icon-12.png" alt="折线" title="折线" /></li>
+                            </ul>
+                            <ul class="shape-right">
+                                <li class="icon-size-3 js-lineStyle">
+                                    <img src="style/img/icon-13.png" alt="粗细" title="粗细" />
+                                    <dl class="line-style" id="lineSize">
+                                        <dd class="h2 active" data-line-size="2">
+                                            <div class="line-inner"><span></span></div>
+                                        </dd>
+                                        <dd class="h3" data-line-size="3">
+                                            <div class="line-inner"><span></span></div>
+                                        </dd>
+                                        <dd class="h4" data-line-size="4">
+                                            <div class="line-inner"><span></span></div>
+                                        </dd>
+                                        <dd class="h5" data-line-size="5">
+                                            <div class="line-inner"><span></span></div>
+                                        </dd>
+                                    </dl>
+                                </li>
+                            </ul>
+                        </div>
+                        <p class="board-text">形状</p>
+                    </div>
+                    <div class="board-panel layer">
+                        <div class="board-icon clearfix">
+                            <ul>
+                                <li id="tool_layer_front"><img src="style/img/icon-14.png" alt="置于顶层" title="置于顶层" /></li>
+                                <li id="tool_layer_back"><img src="style/img/icon-15.png" alt="置于底层" title="置于底层" /></li>
+                                <li id="tool_layer_forward"><img src="style/img/icon-16.png" alt="上移一层" title="上移一层" /></li>
+                                <li id="tool_layer_backward"><img src="style/img/icon-17.png" alt="下移一层" title="下移一层" /></li>
+                            </ul>
+                        </div>
+                        <p class="board-text">图层</p>
+                    </div>
+                    <div class="board-panel color">
+                        <div class="board-icon clearfix">
+                            <ul class="color-left">
+                                <li class="icon-size-2 active" id="font_color">
+                                    <div class="color-block"><span style="background:#0073c6;"></span></div>
+                                    <div class="color-text">线条颜色</div>
+                                </li>
+                                <li class="icon-size-2" id="fill_color">
+                                    <div class="color-block"><span style="background:#ECECEC;"></span></div>
+                                    <div class="color-text">背景颜色</div>
+                                </li>
+                            </ul>
+                            <div class="color-middle" id="colorPalettes"></div>
+                            <ul class="color-right">
+                                <li class="icon-size-4" id="customColor">
+                                    <div class="color-edit">
+                                        <i></i>
+                                        <p>编辑颜色</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                        <p class="board-text">颜色</p>
+                    </div>
+                    <div class="board-panel font">
+                        <div class="board-form clearfix">
+                            <div class="form-row">
+                                <span class="text-tool handle_btn" id="tool_text"><img src="style/img/icon-7.png" alt="插入文本" title="插入文本" /></span>
+                                <select class="chosen-select" style="width:110px;" id="fontFamily">
+                                    <option value="SimSun" style="font-family:SimSun;" selected="selected">宋体</option>
+                                    <option value="SimHei" style="font-family:SimHei;">黑体</option>
+                                    <option value="Microsoft YaHei" style="font-family:Microsoft YaHei;">微软雅黑</option>
+                                    <option value="NSimSun" style="font-family:Microsoft JhengHei;">微软正黑体</option>
+                                    <option value="NSimSun" style="font-family:NSimSun;">新宋体</option>
+                                    <option value="PMingLiU" style="font-family:PMingLiU;">新细明体</option>
+                                    <option value="MingLiU" style="font-family:MingLiU;">细明体</option>
+                                    <option value="DFKai-SB" style="font-family:DFKai-SB;">标楷体</option>
+                                    <option value="FangSong" style="font-family:FangSong;">仿宋</option>
+                                    <option value="KaiTi" style="font-family:KaiTi;">楷体</option>
+                                    <option value="FangSong_GB2312" style="font-family:FangSong_GB2312;">仿宋_GB2312</option>
+                                    <option value="KaiTi_GB2312" style="font-family:KaiTi_GB2312;">楷体_GB2312</option>
+                                </select>
+                            </div>
+                            <div class="form-row">
+                                <select class="chosen-select" style="width:60px;" id="fontSize">
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                    <option value="11">11</option>
+                                    <option value="12">12</option>
+                                    <option value="14" selected="selected">14</option>
+                                    <option value="16">16</option>
+                                    <option value="18">18</option>
+                                    <option value="20">20</option>
+                                    <option value="22">22</option>
+                                    <option value="24">24</option>
+                                    <option value="26">26</option>
+                                    <option value="28">28</option>
+                                    <option value="36">36</option>
+                                    <option value="48">48</option>
+                                    <option value="72">72</option>
+                                </select>
+                                <ul class="font-style">
+                                    <li class="b font_handle_btn" id="fontWeight"></li>
+                                    <li class="i font_handle_btn" id="fontStyle"></li>
+                                    <li class="u font_handle_btn" id="fontUnderline"></li>
+                                    <li class="abc font_handle_btn" id="fontLineThrough"></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <p class="board-text">字体</p>
+                    </div>
+                    <div class="board-panel size last">
+                        <div class="board-form clearfix">
+                            <div class="form-row">
+                                <div class="canvas-size" id="sizeParamW">
+                                    <span class="label">W：</span>
+                                    <input type="text" />
+                                </div>
+                                <div class="canvas-size" id="sizeParamH">
+                                    <span class="label">H：</span>
+                                    <input type="text" />
+                                </div>
+                                <div class="canvas-size" id="sizeParamR">
+                                    <span class="label">R：</span>
+                                    <input type="text" />
+                                </div>
+                                <div class="canvas-size" id="sizeParamA">
+                                    <span class="label">a：</span>
+                                    <input type="text" />
+                                </div>
+                                <div class="canvas-size" id="sizeParamB">
+                                    <span class="label">b：</span>
+                                    <input type="text" />
+                                </div>
+                                <div class="canvas-size" id="sizeParamC">
+                                    <span class="label">c：</span>
+                                    <input type="text" />
+                                </div>
+                                <div class="canvas-size" id="sizeParamX">
+                                    <span class="label">x：</span>
+                                    <input type="text" />
+                                </div>
+                                <div class="canvas-size" id="sizeParamY">
+                                    <span class="label">y：</span>
+                                    <input type="text" />
+                                </div>
+                                <div class="canvas-size" id="sizeParamAngle">
+                                    <span class="label">α：</span>
+                                    <input type="text" />
+                                </div>
+                            </div>
+                        </div>
+                        <p class="board-text">尺寸</p>
+                    </div>
+                </div>
+                <div>
+                    <svg tabindex=0 id="svgPanel" style="overflow:hidden;" xmlns="http://www.w3.org/2000/svg"></svg>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="js/jquery/jquery.js"></script>
+    <script src="js/spectrum/spectrum.js"></script>
+    <link rel="stylesheet" href="js/spectrum/spectrum.css">
+    <script type="text/javascript">
+    $(function() {
+
+        $('.js-lineStyle').on('click', function() {
+            var _obj = $(this).find('dl');
+            if (_obj.css('display') == 'none') {
+                _obj.show();
+                $(this).addClass('active');
+            } else {
+                _obj.hide();
+                $(this).removeClass('active');
+            }
+        })
+
+
+        //点击空白处隐藏菜单
+        $(document).bind('click', function(e) {
+            var target = $(e.target);
+            if (target.closest('.js-lineStyle').length == 0) {
+                $('.js-lineStyle').find('dl').hide();
+                $('.js-lineStyle').removeClass('active');
+            }
+        })
+
+        // -----------------------btn start-----------------------
+	    $(".color-left li").on("click", function(){
+	        $(".color-left li").removeClass("active");
+	        $(this).addClass("active");
+	    });
+        
+
+        // -----------------------color start-----------------------
+        var spectrumColors = [
+            ["#ECECEC", "#184a7b", "#4a84bd", "#c6524a", "#9cbd5a", "#8463a5", "#4aadc6", "#000ff0", "#ffffff", "#000000"],
+            ["#c60000", "#ff0000", "#ffc600", "#ffff00", "#94d652", "#00b552", "#00b5f7", "#0073c6", "#002163", "#7331a5"]
+        ];
+        $("#colorPalettes").spectrum({
+            flat: true,
+            showPaletteOnly: true,
+            color: '#0073c6',
+            move: function(tinycolor) {
+                console.log("color move");
+                console.log(tinycolor.toHexString())
+                if ($("#fill_color").hasClass("active")) {
+                    $("#fill_color").attr("data-color", tinycolor.toHexString());
+                    $("#fill_color span").eq(0).css("background", tinycolor.toHexString());
+
+                } else if ($("#font_color").hasClass("active")) {
+                    $("#font_color").attr("data-color", tinycolor.toHexString());
+                    $("#font_color span").eq(0).css("background", tinycolor.toHexString());
+                }
+
+            },
+
+            palette: spectrumColors
+        });
+
+        $("#customColor").spectrum({
+	        cancelText: "取消",
+	        chooseText: "确定",
+	        allowEmpty:true,
+	        change: function(tinycolor) {
+	                if ($("#fill_color").hasClass("active")) {
+	                    $("#fill_color").attr("data-color", tinycolor.toHexString());
+	                    $("#fill_color span").eq(0).css("background", tinycolor.toHexString());
+	                } else if ($("#font_color").hasClass("active")) {
+	                    $("#font_color").attr("data-color", tinycolor.toHexString());
+	                    $("#font_color span").eq(0).css("background", tinycolor.toHexString());
+	                }
+	            }
+   		});
+   		// -----------------------color end-----------------------
+
+    })
+    </script>
+</body>
+
+</html>
