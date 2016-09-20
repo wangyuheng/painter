@@ -281,6 +281,93 @@
 
     })
     </script>
+
+    <script src="js/svg/svg.js"></script>
+
+    <script type="text/javascript">
+    (function() {
+        SVG.extend(SVG.Doc, {
+                transformPoint : function( event ){
+                    event = event || window.event;
+                    var touches = event.changedTouches && event.changedTouches[0] || event;
+                    var node = this.node;
+                    var point = node.createSVGPoint();
+                    point.x = touches.pageX-window.scrollX;
+                    point.y = touches.pageY-window.scrollY;
+                    var matrix = node.getScreenCTM().inverse();
+                    return point.matrixTransform( matrix );
+                }
+            });
+    })();
+
+    if (!SVG.supported) {
+        alert('SVG not supported');
+    }
+
+    var svgDraw = SVG( "svgPanel" ).size('100%', 600);
+    var svgDoc = svgDraw.doc();
+
+    var drawing = false;
+    var element = null;
+    var startPoint = null;
+    var parent = null;
+
+    function mousemove(event) {
+        console.log('rect mousemove');
+        if (drawing) {
+            var svgPoint = svgDoc.transformPoint(event);
+            var x = svgPoint.x;
+            var y = svgPoint.y;
+
+            var newWidth = x - startPoint.x;
+            var newHeight = y - startPoint.y;
+            var startX = startPoint.x;
+            var startY = startPoint.y;
+            if (newWidth < 0) {
+                startX += newWidth;
+            }
+
+            if (newHeight < 0) {
+                startY += newHeight;
+            }
+            newWidth = Math.abs(newWidth);
+            newHeight = Math.abs(newHeight);
+            element.x(startX).y(startY).width(newWidth).height(newHeight);
+        }
+    };
+
+    function mousedown(event) {
+        console.log('rect mousedown');
+        drawing = true;
+        startPoint = svgDoc.transformPoint(event);
+        element = parent.rect(0, 0).style("fill-opacity", '0.0').stroke({
+            width: '2',
+            color: '#000000'
+        });
+    }
+
+    function mouseup(event) {
+        console.log('rect mouseup ' + element);
+        drawing = false;
+    }
+
+    var listener = {
+        mousedown: mousedown,
+        mousemove: mousemove,
+        mouseup: mouseup,
+    };
+
+    var Tool = {};
+    Tool.Rect = function (parentEle) {
+        parent = parentEle;
+        var l =listener;
+        svgDoc.on( 'mousedown', l.mousedown );
+        svgDoc.on( 'mousemove', l.mousemove );
+        svgDoc.on( 'mouseup',   l.mouseup );
+    };
+    Tool.Rect(svgDraw);
+
+    </script>
 </body>
 
 </html>
