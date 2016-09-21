@@ -69,6 +69,7 @@
             drawing=false;
             points  = [];
             element = null;
+            document.oncontextmenu=function(){return true;}
         };
     };
 
