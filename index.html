@@ -283,22 +283,25 @@
     </script>
 
     <script src="js/svg/svg.js"></script>
+    <script src="js/svg_doc_extension.js"></script>
+    <script src="js/draw_tool.js"></script>
+    <script src="js/draw_tool_rect.js"></script>
+    <script src="js/draw_tool_ellipse.js"></script>
+    <script src="js/draw_tool_circle.js"></script>
+    <script src="js/draw_tool_line.js"></script>
+    <script src="js/draw_tool_polyline.js"></script>
 
     <script type="text/javascript">
-    (function() {
-        SVG.extend(SVG.Doc, {
-                transformPoint : function( event ){
-                    event = event || window.event;
-                    var touches = event.changedTouches && event.changedTouches[0] || event;
-                    var node = this.node;
-                    var point = node.createSVGPoint();
-                    point.x = touches.pageX-window.scrollX;
-                    point.y = touches.pageY-window.scrollY;
-                    var matrix = node.getScreenCTM().inverse();
-                    return point.matrixTransform( matrix );
-                }
-            });
-    })();
+
+    $(".handle_btn").on("click", function(){
+        if ($(this).hasClass("active")) {
+            $(this).removeClass("active");
+        } else {
+            $(".handle_btn").removeClass("active");
+            $(this).addClass("active");
+        }
+    });
+
 
     if (!SVG.supported) {
         alert('SVG not supported');
@@ -306,66 +309,31 @@
 
     var svgDraw = SVG( "svgPanel" ).size('100%', 600);
     var svgDoc = svgDraw.doc();
+    var currentDrawTool = null;
 
-    var drawing = false;
-    var element = null;
-    var startPoint = null;
-    var parent = null;
+    $("#tool_rect").on("click", function(){
+        currentDrawTool && currentDrawTool.stop();
+        currentDrawTool = new DrawTool.Rect(svgDoc);
+    });
+    $("#tool_ellipse").on("click", function(){
+        currentDrawTool && currentDrawTool.stop();
+        currentDrawTool = new DrawTool.Ellipse(svgDoc);
+    });
 
-    function mousemove(event) {
-        console.log('rect mousemove');
-        if (drawing) {
-            var svgPoint = svgDoc.transformPoint(event);
-            var x = svgPoint.x;
-            var y = svgPoint.y;
+    $("#tool_circle").on("click", function(){
+        currentDrawTool && currentDrawTool.stop();
+        currentDrawTool = new DrawTool.Circle(svgDoc);
+    });
+    $("#tool_line").on("click", function(){
+        currentDrawTool && currentDrawTool.stop();
+        currentDrawTool = new DrawTool.Line(svgDoc);
+    });
+    $("#tool_polyline").on("click", function(){
+        currentDrawTool && currentDrawTool.stop();
+        currentDrawTool = new DrawTool.Polyline(svgDoc);
+    });
 
-            var newWidth = x - startPoint.x;
-            var newHeight = y - startPoint.y;
-            var startX = startPoint.x;
-            var startY = startPoint.y;
-            if (newWidth < 0) {
-                startX += newWidth;
-            }
-
-            if (newHeight < 0) {
-                startY += newHeight;
-            }
-            newWidth = Math.abs(newWidth);
-            newHeight = Math.abs(newHeight);
-            element.x(startX).y(startY).width(newWidth).height(newHeight);
-        }
-    };
-
-    function mousedown(event) {
-        console.log('rect mousedown');
-        drawing = true;
-        startPoint = svgDoc.transformPoint(event);
-        element = parent.rect(0, 0).style("fill-opacity", '0.0').stroke({
-            width: '2',
-            color: '#000000'
-        });
-    }
-
-    function mouseup(event) {
-        console.log('rect mouseup ' + element);
-        drawing = false;
-    }
-
-    var listener = {
-        mousedown: mousedown,
-        mousemove: mousemove,
-        mouseup: mouseup,
-    };
-
-    var Tool = {};
-    Tool.Rect = function (parentEle) {
-        parent = parentEle;
-        var l =listener;
-        svgDoc.on( 'mousedown', l.mousedown );
-        svgDoc.on( 'mousemove', l.mousemove );
-        svgDoc.on( 'mouseup',   l.mouseup );
-    };
-    Tool.Rect(svgDraw);
+    
 
     </script>
 </body>
