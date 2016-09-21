@@ -31,6 +31,9 @@
     function mouseup(event) {
         console.log('ellipse mouseup ' + element);
         drawing = false;
+        if (element.attr("rx") > 0 && element.attr("ry") > 0) {
+            element.pickable();
+        }
     }
 
     var listener = {

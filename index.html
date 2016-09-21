@@ -283,6 +283,7 @@
     </script>
 
     <script src="js/svg/svg.js"></script>
+    <script src="js/global_status.js"></script>
     <script src="js/svg_doc_extension.js"></script>
     <script src="js/draw_tool.js"></script>
     <script src="js/draw_tool_rect.js"></script>
@@ -311,26 +312,40 @@
     var svgDoc = svgDraw.doc();
     var currentDrawTool = null;
 
-    $("#tool_rect").on("click", function(){
+    var elementList = [];
+
+    function resetCurrentDrawTool() {
         currentDrawTool && currentDrawTool.stop();
+        $("#svgPanel").css("cursor","default");
+    }
+
+    //bind handle_btn event
+    $("#tool_rect").on("click", function(){
+        resetCurrentDrawTool();
         currentDrawTool = new DrawTool.Rect(svgDoc);
     });
     $("#tool_ellipse").on("click", function(){
-        currentDrawTool && currentDrawTool.stop();
+        resetCurrentDrawTool();
         currentDrawTool = new DrawTool.Ellipse(svgDoc);
     });
 
     $("#tool_circle").on("click", function(){
-        currentDrawTool && currentDrawTool.stop();
+        resetCurrentDrawTool();
         currentDrawTool = new DrawTool.Circle(svgDoc);
     });
     $("#tool_line").on("click", function(){
-        currentDrawTool && currentDrawTool.stop();
+        resetCurrentDrawTool();
         currentDrawTool = new DrawTool.Line(svgDoc);
     });
     $("#tool_polyline").on("click", function(){
-        currentDrawTool && currentDrawTool.stop();
+        resetCurrentDrawTool();
         currentDrawTool = new DrawTool.Polyline(svgDoc);
+    });
+    $("#tool_pick").on("click", function(){
+        resetCurrentDrawTool();
+        if (SVG.isPicked()) {
+            $("#svgPanel").css("cursor","pointer");
+        }
     });
 
     

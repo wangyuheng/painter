@@ -5,21 +5,16 @@
     var element = null;
     var startPoint = null;
 
-    var points  = [];
+    var points = [];
 
     function mousedown(event) {
-        if (event.button == 2) {
-            document.oncontextmenu=function(){return false;}
-            drawing=false;
-            points  = [];
-            element = null;
-            return;
-        }
+        console.log('polyline mousedown');
         if (!drawing) {
             drawing = true;
             var currPoint = svgDoc.transformPoint(event);
             points.push([currPoint.x, currPoint.y]);
         }
+
     }
 
     function mousemove(event) {
@@ -44,12 +39,24 @@
 
     function mouseup(event) {
         console.log('polyline mouseup ' + element);
-        if (drawing && element) {
+        if (event.button == 2) {
+            if (element.attr("points").split(",").length > 2) {
+                element.pickable();
+            }
+            document.oncontextmenu = function() {
+                return false;
+            }
+            drawing = false;
+            points = [];
+            element = null;
+            return;
+        } else if (drawing && element) {
             var svgPoint = svgDoc.transformPoint(event);
             var x = svgPoint.x;
             var y = svgPoint.y;
             points.push([x, y]);
             element.plot(points);
+
         }
     }
 
@@ -66,10 +73,12 @@
         DrawTool.init(svgDoc, listener);
         this.stop = function() {
             DrawTool.stop(svgDoc, listener);
-            drawing=false;
-            points  = [];
+            drawing = false;
+            points = [];
             element = null;
-            document.oncontextmenu=function(){return true;}
+            document.oncontextmenu = function() {
+                return true;
+            }
         };
     };
 

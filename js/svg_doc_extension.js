@@ -11,4 +11,48 @@
             return point.matrixTransform(matrix);
         }
     });
+
+    SVG.extend(SVG.Element, {
+        pickable: function(enabled) {
+            var _ele = this;
+            elementList.push(_ele);
+            var color = _ele._stroke;
+            var width = _ele.attr("stroke-width");
+            _ele.on("mouseover", function() {
+                if (SVG.isPicked() && !_ele.attr("picked")) {
+                    _ele.stroke({
+                        width: width * 2,
+                        color: 'red'
+                    });
+                }
+            });
+            _ele.on("mouseout", function() {
+                if (SVG.isPicked() && !_ele.attr("picked")) {
+                    _ele.stroke({
+                        width: width,
+                        color: color
+                    });
+                }
+            });
+            _ele.on("click", function() {
+                if (SVG.isPicked()) {
+                    if (!_ele.attr("picked")) {
+                        _ele.attr("picked", true);
+                        _ele.stroke({
+                            width: width * 2,
+                            color: 'yellow'
+                        });
+                    } else {
+                        _ele.attr("picked", null);
+                        _ele.stroke({
+                            width: width,
+                            color: color
+                        });
+                    }
+                }
+            });
+            return this;
+        }
+
+    });
 })();

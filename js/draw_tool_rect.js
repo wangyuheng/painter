@@ -42,6 +42,9 @@
     function mouseup(event) {
         console.log('rect mouseup ' + element);
         drawing = false;
+        if (element.attr("width") > 0) {
+            element.pickable();
+        }
     }
 
     var listener = {
@@ -55,7 +58,7 @@
         parent = parentEle;
         svgDoc = parent.doc();
         DrawTool.init(svgDoc, listener);
-        this.stop = function () {
+        this.stop = function() {
             DrawTool.stop(svgDoc, listener);
         };
     };

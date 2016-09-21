@@ -32,6 +32,9 @@
     function mouseup(event) {
         console.log('line mouseup ' + element);
         drawing = false;
+        if (element.attr("x1") != element.attr("x2") && element.attr("y1") != element.attr("y2")) {
+            element.pickable();
+        }
     }
 
     var listener = {

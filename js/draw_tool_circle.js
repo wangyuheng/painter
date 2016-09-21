@@ -31,6 +31,9 @@
     function mouseup(event) {
         console.log('circle mouseup ' + element);
         drawing = false;
+        if (element.attr("r") > 0) {
+            element.pickable();
+        }
     }
 
     var listener = {
