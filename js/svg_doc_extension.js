@@ -1,4 +1,8 @@
 (function() {
+
+    var handleBorder = null;
+    var pickedElementList = [];
+
     SVG.extend(SVG.Doc, {
         transformPoint: function(event) {
             event = event || window.event;
@@ -9,6 +13,9 @@
             point.y = touches.pageY - window.scrollY;
             var matrix = node.getScreenCTM().inverse();
             return point.matrixTransform(matrix);
+        },
+        getPickedElementList: function(){
+            return pickedElementList;
         }
     });
 
@@ -38,16 +45,14 @@
                 if (SVG.isPicked()) {
                     if (!_ele.attr("picked")) {
                         _ele.attr("picked", true);
-                        _ele.stroke({
-                            width: width * 2,
-                            color: 'yellow'
-                        });
+                        console.log(_ele.handleBorder);
+                        _ele.handleBorder = _ele.handleBorder || new HandleBorder(svgDoc);
+                        _ele.handleBorder.showShade(_ele);
+                        pickedElementList.push(_ele);
                     } else {
                         _ele.attr("picked", null);
-                        _ele.stroke({
-                            width: width,
-                            color: color
-                        });
+                        _ele.handleBorder && _ele.handleBorder.hideShade(_ele);
+                        pickedElementList.remove(_ele);
                     }
                 }
             });
