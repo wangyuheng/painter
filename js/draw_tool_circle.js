@@ -13,6 +13,7 @@
             width: GlobalStatus.getLineSize(),
             color: GlobalStatus.getFontColor()
         });
+        return false;
     }
 
     function mousemove(event) {
@@ -25,7 +26,8 @@
             var radius = Math.pow((x - startPoint.x), 2) + Math.pow((y - startPoint.y), 2);
             radius = Math.sqrt(radius);
             element.radius(radius);
-        };
+        }
+        return false;
     }
 
     function mouseup(event) {
@@ -34,6 +36,7 @@
         if (element.attr("r") > 0) {
             element.pickable();
         }
+        return false;
     }
 
     var listener = {

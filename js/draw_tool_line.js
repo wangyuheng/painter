@@ -13,6 +13,7 @@
             width: GlobalStatus.getLineSize(),
             color: GlobalStatus.getFontColor()
         });
+        return false;
     }
 
     function mousemove(event) {
@@ -26,7 +27,8 @@
                 [startPoint.x, startPoint.y],
                 [x, y]
             ]);
-        };
+        }
+        return false;
     }
 
     function mouseup(event) {
@@ -35,6 +37,7 @@
         if (element.attr("x1") != element.attr("x2") && element.attr("y1") != element.attr("y2")) {
             element.pickable();
         }
+        return false;
     }
 
     var listener = {

@@ -12,10 +12,11 @@
         drawing = true;
         startPoint = svgDoc.transformPoint(event);
         plot = 'M' + startPoint.x + ' ' + startPoint.y;
-        element = parent.path( plot ).fill(GlobalStatus.getFillColor()).style("fill-opacity", GlobalStatus.getFillOpacity()).stroke({
+        element = parent.path(plot).fill(GlobalStatus.getFillColor()).style("fill-opacity", GlobalStatus.getFillOpacity()).stroke({
             width: GlobalStatus.getLineSize(),
             color: GlobalStatus.getFontColor()
         });
+        return false;
     }
 
     function mousemove(event) {
@@ -24,8 +25,9 @@
             var startPoint = svgDoc.transformPoint(event);
             console.log(plot);
             plot += 'L' + startPoint.x + ' ' + startPoint.y;
-            element.plot( plot );
+            element.plot(plot);
         }
+        return false;
     };
 
     function mouseup(event) {
@@ -34,6 +36,7 @@
         if (element.attr("d").split("L").length > 2) {
             element.pickable();
         }
+        return false;
     }
 
     var listener = {

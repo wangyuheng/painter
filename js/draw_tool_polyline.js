@@ -14,7 +14,7 @@
             var currPoint = svgDoc.transformPoint(event);
             points.push([currPoint.x, currPoint.y]);
         }
-
+        return false;
     }
 
     function mousemove(event) {
@@ -34,7 +34,8 @@
             } else {
                 element.plot(pointsTmp);
             }
-        };
+        }
+        return false;
     }
 
     function mouseup(event) {
@@ -58,6 +59,7 @@
             element.plot(points);
 
         }
+        return false;
     }
 
     var listener = {

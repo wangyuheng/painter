@@ -13,6 +13,7 @@
             width: GlobalStatus.getLineSize(),
             color: GlobalStatus.getFontColor()
         });
+        return false;
     }
 
     function mousemove(event) {
@@ -26,6 +27,7 @@
             var ry = Math.abs(svgPoint.y - startPoint.y);
             element.rx(rx).ry(ry);
         }
+        return false;
     };
 
     function mouseup(event) {
@@ -34,6 +36,7 @@
         if (element.attr("rx") > 0 && element.attr("ry") > 0) {
             element.pickable();
         }
+        return false;
     }
 
     var listener = {
@@ -47,7 +50,7 @@
         parent = parentEle;
         svgDoc = parent.doc();
         DrawTool.init(svgDoc, listener);
-        this.stop = function () {
+        this.stop = function() {
             DrawTool.stop(svgDoc, listener);
         };
     };

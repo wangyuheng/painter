@@ -13,6 +13,7 @@
             width: GlobalStatus.getLineSize(),
             color: GlobalStatus.getFontColor()
         });
+        return false;
     }
 
     function mousemove(event) {
@@ -37,6 +38,7 @@
             newHeight = Math.abs(newHeight);
             element.x(startX).y(startY).width(newWidth).height(newHeight);
         }
+        return false;
     };
 
     function mouseup(event) {
@@ -45,6 +47,7 @@
         if (element.attr("width") > 0) {
             element.pickable();
         }
+        return false;
     }
 
     var listener = {
