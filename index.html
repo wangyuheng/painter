@@ -216,89 +216,95 @@
     <script src="js/spectrum/spectrum.js"></script>
     <link rel="stylesheet" href="js/spectrum/spectrum.css">
     <script type="text/javascript">
-    $(function() {
+        $(function() {
 
-        $('.js-lineStyle').on('click', function() {
-            var _obj = $(this).find('dl');
-            if (_obj.css('display') == 'none') {
-                _obj.show();
-                $(this).addClass('active');
-            } else {
-                _obj.hide();
-                $(this).removeClass('active');
-            }
-        })
-
-
-        //点击空白处隐藏菜单
-        $(document).bind('click', function(e) {
-            var target = $(e.target);
-            if (target.closest('.js-lineStyle').length == 0) {
-                $('.js-lineStyle').find('dl').hide();
-                $('.js-lineStyle').removeClass('active');
-            }
-        })
-
-        $("#lineSize dd").on("click", function(){
-            $("#lineSize dd").removeClass("active");
-            $(this).addClass("active");
-        });
-
-        // -----------------------btn start-----------------------
-	    $(".color-left li").on("click", function(){
-	        $(".color-left li").removeClass("active");
-	        $(this).addClass("active");
-	    });
-        
-
-        // -----------------------color start-----------------------
-        var spectrumColors = [
-            ["#ECECEC", "#184a7b", "#4a84bd", "#c6524a", "#9cbd5a", "#8463a5", "#4aadc6", "#000ff0", "#ffffff", "#000000"],
-            ["#c60000", "#ff0000", "#ffc600", "#ffff00", "#94d652", "#00b552", "#00b5f7", "#0073c6", "#002163", "#7331a5"]
-        ];
-        $("#colorPalettes").spectrum({
-            flat: true,
-            showPaletteOnly: true,
-            color: '#0073c6',
-            move: function(tinycolor) {
-                console.log("color move");
-                console.log(tinycolor.toHexString())
-                if ($("#fill_color").hasClass("active")) {
-                    $("#fill_color").attr("data-color", tinycolor.toHexString());
-                    $("#fill_color span").eq(0).css("background", tinycolor.toHexString());
-
-                } else if ($("#font_color").hasClass("active")) {
-                    $("#font_color").attr("data-color", tinycolor.toHexString());
-                    $("#font_color span").eq(0).css("background", tinycolor.toHexString());
+            // -----------------------lineSize start-----------------------
+            $('.js-lineStyle').on('click', function() {
+                var _obj = $(this).find('dl');
+                if (_obj.css('display') == 'none') {
+                    _obj.show();
+                    $(this).addClass('active');
+                } else {
+                    _obj.hide();
+                    $(this).removeClass('active');
                 }
+            })
+            $(document).bind('click', function(e) {
+                var target = $(e.target);
+                if (target.closest('.js-lineStyle').length == 0) {
+                    $('.js-lineStyle').find('dl').hide();
+                    $('.js-lineStyle').removeClass('active');
+                }
+            })
+            $("#lineSize dd").on("click", function() {
+                $("#lineSize dd").removeClass("active");
+                $(this).addClass("active");
+            });
+            // -----------------------lineSize end-----------------------
 
-            },
+            // -----------------------color start-----------------------
+            $(".color-left li").on("click", function() {
+                $(".color-left li").removeClass("active");
+                $(this).addClass("active");
+            });
 
-            palette: spectrumColors
-        });
+            var spectrumColors = [
+                ["#ECECEC", "#184a7b", "#4a84bd", "#c6524a", "#9cbd5a", "#8463a5", "#4aadc6", "#000ff0", "#ffffff", "#000000"],
+                ["#c60000", "#ff0000", "#ffc600", "#ffff00", "#94d652", "#00b552", "#00b5f7", "#0073c6", "#002163", "#7331a5"]
+            ];
+            $("#colorPalettes").spectrum({
+                flat: true,
+                showPaletteOnly: true,
+                color: '#0073c6',
+                move: function(tinycolor) {
+                    console.log("color move");
+                    console.log(tinycolor.toHexString())
+                    if ($("#fill_color").hasClass("active")) {
+                        $("#fill_color").attr("data-color", tinycolor.toHexString());
+                        $("#fill_color span").eq(0).css("background", tinycolor.toHexString());
 
-        $("#customColor").spectrum({
-	        cancelText: "取消",
-	        chooseText: "确定",
-	        allowEmpty:true,
-	        change: function(tinycolor) {
-	                if ($("#fill_color").hasClass("active")) {
-	                    $("#fill_color").attr("data-color", tinycolor.toHexString());
-	                    $("#fill_color span").eq(0).css("background", tinycolor.toHexString());
-	                } else if ($("#font_color").hasClass("active")) {
-	                    $("#font_color").attr("data-color", tinycolor.toHexString());
-	                    $("#font_color span").eq(0).css("background", tinycolor.toHexString());
-	                }
-	            }
-   		});
+                    } else if ($("#font_color").hasClass("active")) {
+                        $("#font_color").attr("data-color", tinycolor.toHexString());
+                        $("#font_color span").eq(0).css("background", tinycolor.toHexString());
+                    }
 
-        $("#font_color span").css("background", GlobalStatus.defaultFontColor);
-        $("#font_color").attr("data-color", GlobalStatus.defaultFontColor);
-        $("#fill_color span").css("background", GlobalStatus.defaultFillColor);
-        $("#fill_color").attr("data-color", GlobalStatus.defaultFillColor);
-   		// -----------------------color end-----------------------
+                },
 
-    })
+                palette: spectrumColors
+            });
+
+            $("#customColor").spectrum({
+                cancelText: "取消",
+                chooseText: "确定",
+                allowEmpty: true,
+                change: function(tinycolor) {
+                    if ($("#fill_color").hasClass("active")) {
+                        $("#fill_color").attr("data-color", tinycolor.toHexString());
+                        $("#fill_color span").eq(0).css("background", tinycolor.toHexString());
+                    } else if ($("#font_color").hasClass("active")) {
+                        $("#font_color").attr("data-color", tinycolor.toHexString());
+                        $("#font_color span").eq(0).css("background", tinycolor.toHexString());
+                    }
+                }
+            });
+
+            $("#font_color span").css("background", GlobalStatus.defaultFontColor);
+            $("#font_color").attr("data-color", GlobalStatus.defaultFontColor);
+            $("#fill_color span").css("background", GlobalStatus.defaultFillColor);
+            $("#fill_color").attr("data-color", GlobalStatus.defaultFillColor);
+            // -----------------------color end-----------------------
+
+            // -----------------------handle_btn start-----------------------
+            $(".handle_btn").on("click", function() {
+                if ($(this).hasClass("active")) {
+                    return false;
+                } else {
+                    $(".handle_btn").removeClass("active");
+                    $(this).addClass("active");
+                }
+            });
+            // -----------------------handle_btn end-----------------------
+        })
     </script>
 
     <script src="js/core.js"></script>
@@ -315,78 +321,65 @@
     <script src="js/handle_border.js"></script>
 
     <script type="text/javascript">
-
-    $(".handle_btn").on("click", function(){
-        if ($(this).hasClass("active")) {
-            return false;
-            // $(this).removeClass("active");
-        } else {
-            $(".handle_btn").removeClass("active");
-            $(this).addClass("active");
+        if (!SVG.supported) {
+            alert('SVG not supported');
         }
-    });
 
+        var svgDraw = SVG("svgPanel").size('100%', 600);
+        var svgDoc = svgDraw.doc();
+        var currentDrawTool = null;
 
-    if (!SVG.supported) {
-        alert('SVG not supported');
-    }
+        var elementList = [];
 
-    var svgDraw = SVG( "svgPanel" ).size('100%', 600);
-    var svgDoc = svgDraw.doc();
-    var currentDrawTool = null;
+        function resetCurrentDrawTool() {
+            currentDrawTool && currentDrawTool.stop();
+            $("#svgPanel").css("cursor", "default");
+        }
 
-    var elementList = [];
+        //bind handle_btn event
+        $("#tool_rect").on("click", function() {
+            resetCurrentDrawTool();
+            currentDrawTool = new DrawTool.Rect(svgDoc);
+        });
+        $("#tool_ellipse").on("click", function() {
+            resetCurrentDrawTool();
+            currentDrawTool = new DrawTool.Ellipse(svgDoc);
+        });
 
-    function resetCurrentDrawTool() {
-        currentDrawTool && currentDrawTool.stop();
-        $("#svgPanel").css("cursor","default");
-    }
+        $("#tool_circle").on("click", function() {
+            resetCurrentDrawTool();
+            currentDrawTool = new DrawTool.Circle(svgDoc);
+        });
+        $("#tool_line").on("click", function() {
+            resetCurrentDrawTool();
+            currentDrawTool = new DrawTool.Line(svgDoc);
+        });
+        $("#tool_polyline").on("click", function() {
+            resetCurrentDrawTool();
+            currentDrawTool = new DrawTool.Polyline(svgDoc);
+        });
+        $("#tool_pencil").on("click", function() {
+            console.log("click");
+            resetCurrentDrawTool();
+            currentDrawTool = new DrawTool.Pencil(svgDoc);
+            $("#svgPanel").css("cursor", "url(style/img/cur/tool_pencil.cur), auto");
+        });
+        $("#tool_pencil").on("dblclick", function() {
+            console.log("dblclick");
+            resetCurrentDrawTool();
+            currentDrawTool = new DrawTool.Pencil(svgDoc, 'T');
+            $("#svgPanel").css("cursor", "url(style/img/cur/tool_pencil.cur), auto");
+        });
+        $("#tool_pick").on("click", function() {
+            resetCurrentDrawTool();
+        });
+        $("#tool_fill").on("click", function() {
+            resetCurrentDrawTool();
+        });
 
-    //bind handle_btn event
-    $("#tool_rect").on("click", function(){
-        resetCurrentDrawTool();
-        currentDrawTool = new DrawTool.Rect(svgDoc);
-    });
-    $("#tool_ellipse").on("click", function(){
-        resetCurrentDrawTool();
-        currentDrawTool = new DrawTool.Ellipse(svgDoc);
-    });
-
-    $("#tool_circle").on("click", function(){
-        resetCurrentDrawTool();
-        currentDrawTool = new DrawTool.Circle(svgDoc);
-    });
-    $("#tool_line").on("click", function(){
-        resetCurrentDrawTool();
-        currentDrawTool = new DrawTool.Line(svgDoc);
-    });
-    $("#tool_polyline").on("click", function(){
-        resetCurrentDrawTool();
-        currentDrawTool = new DrawTool.Polyline(svgDoc);
-    });
-    $("#tool_pencil").on("click", function(){
-        console.log("click");
-        resetCurrentDrawTool();
-        currentDrawTool = new DrawTool.Pencil(svgDoc);
-        $("#svgPanel").css("cursor", "url(style/img/cur/tool_pencil.cur), auto");
-    });
-    $("#tool_pencil").on("dblclick", function(){
-        console.log("dblclick");
-        resetCurrentDrawTool();
-        currentDrawTool = new DrawTool.Pencil(svgDoc, 'T');
-        $("#svgPanel").css("cursor", "url(style/img/cur/tool_pencil.cur), auto");
-    });
-    $("#tool_pick").on("click", function(){
-        resetCurrentDrawTool();
-    });
-    $("#tool_fill").on("click", function(){
-        resetCurrentDrawTool();
-    });
-
-    $(function(){
-        $("#tool_pencil").click();
-    });
-
+        $(function() {
+            $("#tool_pencil").click();
+        });
     </script>
 </body>
 

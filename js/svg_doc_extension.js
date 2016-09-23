@@ -1,8 +1,5 @@
 (function() {
 
-    var handleBorder = null;
-    var pickedElementList = [];
-
     SVG.extend(SVG.Doc, {
         transformPoint: function(event) {
             event = event || window.event;
@@ -13,9 +10,6 @@
             point.y = touches.pageY - window.scrollY;
             var matrix = node.getScreenCTM().inverse();
             return point.matrixTransform(matrix);
-        },
-        getPickedElementList: function() {
-            return pickedElementList;
         }
     });
 
@@ -26,29 +20,29 @@
             var color = _ele._stroke;
             var width = _ele.attr("stroke-width");
             _ele.on("mouseover", function() {
-                if (GlobalStatus.isPicked() ) {
+                if (GlobalStatus.isPicked()) {
                     _ele.stroke({
                         width: width * 2,
                         color: 'red'
                     });
                     $("#svgPanel").css("cursor", "pointer");
-                } else if (GlobalStatus.isPreFilled()){
+                } else if (GlobalStatus.isPreFilled()) {
                     $("#svgPanel").css("cursor", "url(style/img/cur/tool_fill.cur), auto");
                 }
-                
-                
+
+
             });
             _ele.on("mouseout", function() {
-                if (GlobalStatus.isPicked() ) {
+                if (GlobalStatus.isPicked()) {
                     _ele.stroke({
                         width: width,
                         color: color
                     });
                     $("#svgPanel").css("cursor", "default");
-                } else if (GlobalStatus.isPreFilled()){
+                } else if (GlobalStatus.isPreFilled()) {
                     $("#svgPanel").css("cursor", "default");
                 }
-                
+
             });
             _ele.on("click", function() {
                 if (GlobalStatus.isPreFilled()) {
@@ -64,11 +58,11 @@
                         _ele.attr("picked", true);
                         _ele.handleBorder = _ele.handleBorder || new HandleBorder(svgDoc);
                         _ele.handleBorder.showShade(_ele);
-                        pickedElementList.push(_ele);
+                        GlobalStatus.pushPicked(_ele);
                     } else {
                         _ele.attr("picked", null);
                         _ele.handleBorder && _ele.handleBorder.hideShade(_ele);
-                        pickedElementList.remove(_ele);
+                        GlobalStatus.removePicked(_ele);
                     }
                 }
             });

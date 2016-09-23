@@ -2,6 +2,7 @@ var GlobalStatus = {
 	defaultFontColor:"#0073c6",
 	defaultFillColor:"#ececec",
 	defaultLineSize:"2",
+	pickedElementList: [],
 	isPicked:function(){
 		return $("#tool_pick").hasClass("active");
 	},
@@ -23,6 +24,15 @@ var GlobalStatus = {
 			fillOpacity = "1.0";
 		}
 		return fillOpacity;
+	},
+	pushPicked: function(o){
+		return this.pickedElementList.push(o);
+	},
+	removePicked: function(o) {
+		return this.pickedElementList.remove(o);
+	},
+	getPickeds: function(){
+		return this.pickedElementList;
 	}
 }
 
