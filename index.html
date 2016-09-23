@@ -11,6 +11,15 @@
     <link rel="stylesheet" href="style/normalize.css">
     <link rel="stylesheet" href="style/base.css">
     <link rel="stylesheet" href="style/board.css">
+    <script>
+        var _hmt = _hmt || [];
+        (function() {
+          var hm = document.createElement("script");
+          hm.src = "//hm.baidu.com/hm.js?b139c537584c4df94efabd9cbeaa1848";
+          var s = document.getElementsByTagName("script")[0]; 
+          s.parentNode.insertBefore(hm, s);
+        })();
+    </script>
 </head>
 
 <body>
@@ -33,7 +42,7 @@
                                 <li class="handle_btn" title="上传图片 (Ctrl+O)" id="tt">
                                     <img src="style/img/icon-5.png" alt="图片" title="图片" /></li>
                                 <li class="handle_btn" id="tool_pencil"><img src="style/img/icon-6.png" alt="铅笔" title="铅笔" /></li>
-                                <li class="handle_btn" id="tool_fill"><img src="style/img/icon-8.png" alt="画布颜色" title="画布颜色" /></li>
+                                <li class="handle_btn" id="tool_fill"><img src="style/img/icon-8.png" alt="喷枪" title="喷枪" /></li>
                             </ul>
                             <div class="clear-screen" id="clear_all"><img src="style/img/icon-20.png" alt="" /></div>
                         </div>
@@ -85,11 +94,11 @@
                         <div class="board-icon clearfix">
                             <ul class="color-left">
                                 <li class="icon-size-2 active" id="font_color">
-                                    <div class="color-block"><span style="background:#0073c6;"></span></div>
+                                    <div class="color-block"><span></span></div>
                                     <div class="color-text">线条颜色</div>
                                 </li>
                                 <li class="icon-size-2" id="fill_color">
-                                    <div class="color-block"><span style="background:#ECECEC;"></span></div>
+                                    <div class="color-block"><span></span></div>
                                     <div class="color-text">背景颜色</div>
                                 </li>
                             </ul>
@@ -277,6 +286,11 @@
 	                }
 	            }
    		});
+
+        $("#font_color span").css("background", GlobalStatus.defaultFontColor);
+        $("#font_color").attr("data-color", GlobalStatus.defaultFontColor);
+        $("#fill_color span").css("background", GlobalStatus.defaultFillColor);
+        $("#fill_color").attr("data-color", GlobalStatus.defaultFillColor);
    		// -----------------------color end-----------------------
 
     })
@@ -318,7 +332,7 @@
 
     function resetCurrentDrawTool() {
         currentDrawTool && currentDrawTool.stop();
-        $("#svgPanel").css("cursor","default");
+        // $("#svgPanel").css("cursor","default");
     }
 
     //bind handle_btn event
@@ -345,9 +359,12 @@
     });
     $("#tool_pick").on("click", function(){
         resetCurrentDrawTool();
-        if (SVG.isPicked()) {
-            $("#svgPanel").css("cursor","pointer");
-        }
+        // if (GlobalStatus.isPicked()) {
+            // $("#svgPanel").css("cursor","pointer");
+        // }
+    });
+    $("#tool_fill").on("click", function(){
+        resetCurrentDrawTool();
     });
 
     </script>

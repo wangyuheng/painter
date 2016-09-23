@@ -14,7 +14,7 @@
             var matrix = node.getScreenCTM().inverse();
             return point.matrixTransform(matrix);
         },
-        getPickedElementList: function(){
+        getPickedElementList: function() {
             return pickedElementList;
         }
     });
@@ -26,23 +26,35 @@
             var color = _ele._stroke;
             var width = _ele.attr("stroke-width");
             _ele.on("mouseover", function() {
-                if (SVG.isPicked() && !_ele.attr("picked")) {
+                if (GlobalStatus.isPicked() ) {
+                    $("#svgPanel").css("cursor", "pointer");
                     _ele.stroke({
                         width: width * 2,
                         color: 'red'
                     });
                 }
+                
             });
             _ele.on("mouseout", function() {
-                if (SVG.isPicked() && !_ele.attr("picked")) {
+                console.log("mouseout");
+                if (GlobalStatus.isPicked() ) {
                     _ele.stroke({
                         width: width,
                         color: color
                     });
                 }
+                $("#svgPanel").css("cursor", "default");
             });
             _ele.on("click", function() {
-                if (SVG.isPicked()) {
+                if (GlobalStatus.isPreFilled()) {
+                    if ($("#fill_color").hasClass("active")) {
+                        _ele.fill(GlobalStatus.getFillColor());
+                        _ele.style("fill-opacity", GlobalStatus.getFillOpacity());
+                    } else {
+                        _ele.style("stroke", GlobalStatus.getFontColor());
+                    }
+
+                } else if (GlobalStatus.isPicked()) {
                     if (!_ele.attr("picked")) {
                         _ele.attr("picked", true);
                         console.log(_ele.handleBorder);

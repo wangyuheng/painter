@@ -27,9 +27,9 @@
             pointsTmp.push([x, y]);
 
             if (!element) {
-                element = parent.polyline(points).style("fill-opacity", "0.0").stroke({
-                    width: '2',
-                    color: '#000000'
+                element = parent.polyline(points).fill(GlobalStatus.getFillColor()).style("fill-opacity", GlobalStatus.getFillOpacity()).stroke({
+                    width: GlobalStatus.getLineSize(),
+                    color: GlobalStatus.getFontColor()
                 });
             } else {
                 element.plot(pointsTmp);

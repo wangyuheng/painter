@@ -9,9 +9,9 @@
         console.log('line mousedown');
         drawing = true;
         startPoint = svgDoc.transformPoint(event);
-        element = parent.line(startPoint.x, startPoint.y, startPoint.x, startPoint.y).style("fill-opacity", '0.0').stroke({
-            width: '2',
-            color: '#000000'
+        element = parent.line(startPoint.x, startPoint.y, startPoint.x, startPoint.y).fill(GlobalStatus.getFillColor()).style("fill-opacity", GlobalStatus.getFillOpacity()).stroke({
+            width: GlobalStatus.getLineSize(),
+            color: GlobalStatus.getFontColor()
         });
     }
 

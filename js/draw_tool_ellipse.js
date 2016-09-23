@@ -9,9 +9,9 @@
         console.log('ellipse mousedown');
         drawing = true;
         startPoint = svgDoc.transformPoint(event);
-        element = parent.ellipse(0, 0).move(startPoint.x, startPoint.y).style("fill-opacity", '0.0').stroke({
-            width: '2',
-            color: '#000000'
+        element = parent.ellipse(0, 0).move(startPoint.x, startPoint.y).fill(GlobalStatus.getFillColor()).style("fill-opacity", GlobalStatus.getFillOpacity()).stroke({
+            width: GlobalStatus.getLineSize(),
+            color: GlobalStatus.getFontColor()
         });
     }
 
