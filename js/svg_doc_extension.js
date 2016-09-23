@@ -27,12 +27,15 @@
             var width = _ele.attr("stroke-width");
             _ele.on("mouseover", function() {
                 if (GlobalStatus.isPicked() ) {
-                    $("#svgPanel").css("cursor", "pointer");
                     _ele.stroke({
                         width: width * 2,
                         color: 'red'
                     });
+                    $("#svgPanel").css("cursor", "pointer");
+                } else if (GlobalStatus.isPreFilled()){
+                    $("#svgPanel").css("cursor", "url(style/img/cur/tool_fill.cur), auto");
                 }
+                
                 
             });
             _ele.on("mouseout", function() {
@@ -42,8 +45,11 @@
                         width: width,
                         color: color
                     });
+                    $("#svgPanel").css("cursor", "default");
+                } else if (GlobalStatus.isPreFilled()){
+                    $("#svgPanel").css("cursor", "default");
                 }
-                $("#svgPanel").css("cursor", "default");
+                
             });
             _ele.on("click", function() {
                 if (GlobalStatus.isPreFilled()) {

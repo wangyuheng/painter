@@ -302,6 +302,7 @@
     <script src="js/svg_doc_extension.js"></script>
     <script src="js/draw_tool.js"></script>
     <script src="js/draw_tool_rect.js"></script>
+    <script src="js/draw_tool_pencil.js"></script>
     <script src="js/draw_tool_ellipse.js"></script>
     <script src="js/draw_tool_circle.js"></script>
     <script src="js/draw_tool_line.js"></script>
@@ -332,7 +333,7 @@
 
     function resetCurrentDrawTool() {
         currentDrawTool && currentDrawTool.stop();
-        // $("#svgPanel").css("cursor","default");
+        $("#svgPanel").css("cursor","default");
     }
 
     //bind handle_btn event
@@ -357,14 +358,20 @@
         resetCurrentDrawTool();
         currentDrawTool = new DrawTool.Polyline(svgDoc);
     });
+    $("#tool_pencil").on("click", function(){
+        resetCurrentDrawTool();
+        currentDrawTool = new DrawTool.Pencil(svgDoc);
+        $("#svgPanel").css("cursor", "url(style/img/cur/tool_pencil.cur), auto");
+    });
     $("#tool_pick").on("click", function(){
         resetCurrentDrawTool();
-        // if (GlobalStatus.isPicked()) {
-            // $("#svgPanel").css("cursor","pointer");
-        // }
     });
     $("#tool_fill").on("click", function(){
         resetCurrentDrawTool();
+    });
+
+    $(function(){
+        $("#tool_pencil").click();
     });
 
     </script>
