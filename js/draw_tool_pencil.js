@@ -6,6 +6,8 @@
     var startPoint = null;
 
     var plot = null;
+    var plotPrefix = null;
+    var defaultPlotPrefix = 'L';
 
     function mousedown(event) {
         console.log('pencil mousedown');
@@ -24,7 +26,7 @@
         if (drawing) {
             var startPoint = svgDoc.transformPoint(event);
             console.log(plot);
-            plot += 'L' + startPoint.x + ' ' + startPoint.y;
+            plot += plotPrefix + startPoint.x + ' ' + startPoint.y;
             element.plot(plot);
         }
         return false;
@@ -33,7 +35,7 @@
     function mouseup(event) {
         console.log('pencil mouseup ' + element);
         drawing = false;
-        if (element.attr("d").split("L").length > 2) {
+        if (element.attr("d").split(plotPrefix).length > 2) {
             element.pickable();
         }
         return false;
@@ -46,10 +48,11 @@
     };
 
 
-    var Pencil = function(parentEle) {
+    var Pencil = function(parentEle, prefix) {
         parent = parentEle;
         svgDoc = parent.doc();
         DrawTool.init(svgDoc, listener);
+        plotPrefix = prefix || defaultPlotPrefix;
         this.stop = function() {
             DrawTool.stop(svgDoc, listener);
         };

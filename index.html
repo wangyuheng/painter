@@ -64,13 +64,13 @@
                                         <dd class="h2 active" data-line-size="2">
                                             <div class="line-inner"><span></span></div>
                                         </dd>
-                                        <dd class="h3" data-line-size="3">
+                                        <dd class="h3" data-line-size="4">
                                             <div class="line-inner"><span></span></div>
                                         </dd>
-                                        <dd class="h4" data-line-size="4">
+                                        <dd class="h4" data-line-size="8">
                                             <div class="line-inner"><span></span></div>
                                         </dd>
-                                        <dd class="h5" data-line-size="5">
+                                        <dd class="h5" data-line-size="16">
                                             <div class="line-inner"><span></span></div>
                                         </dd>
                                     </dl>
@@ -239,6 +239,11 @@
             }
         })
 
+        $("#lineSize dd").on("click", function(){
+            $("#lineSize dd").removeClass("active");
+            $(this).addClass("active");
+        });
+
         // -----------------------btn start-----------------------
 	    $(".color-left li").on("click", function(){
 	        $(".color-left li").removeClass("active");
@@ -313,7 +318,8 @@
 
     $(".handle_btn").on("click", function(){
         if ($(this).hasClass("active")) {
-            $(this).removeClass("active");
+            return false;
+            // $(this).removeClass("active");
         } else {
             $(".handle_btn").removeClass("active");
             $(this).addClass("active");
@@ -359,8 +365,15 @@
         currentDrawTool = new DrawTool.Polyline(svgDoc);
     });
     $("#tool_pencil").on("click", function(){
+        console.log("click");
         resetCurrentDrawTool();
         currentDrawTool = new DrawTool.Pencil(svgDoc);
+        $("#svgPanel").css("cursor", "url(style/img/cur/tool_pencil.cur), auto");
+    });
+    $("#tool_pencil").on("dblclick", function(){
+        console.log("dblclick");
+        resetCurrentDrawTool();
+        currentDrawTool = new DrawTool.Pencil(svgDoc, 'T');
         $("#svgPanel").css("cursor", "url(style/img/cur/tool_pencil.cur), auto");
     });
     $("#tool_pick").on("click", function(){

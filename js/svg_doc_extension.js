@@ -39,7 +39,6 @@
                 
             });
             _ele.on("mouseout", function() {
-                console.log("mouseout");
                 if (GlobalStatus.isPicked() ) {
                     _ele.stroke({
                         width: width,
@@ -63,7 +62,6 @@
                 } else if (GlobalStatus.isPicked()) {
                     if (!_ele.attr("picked")) {
                         _ele.attr("picked", true);
-                        console.log(_ele.handleBorder);
                         _ele.handleBorder = _ele.handleBorder || new HandleBorder(svgDoc);
                         _ele.handleBorder.showShade(_ele);
                         pickedElementList.push(_ele);

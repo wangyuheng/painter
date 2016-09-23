@@ -15,7 +15,7 @@ var GlobalStatus = {
 		return $("#fill_color").attr("data-color");
 	},
 	getLineSize:function(){
-		return this.defaultLineSize;
+		return $("#lineSize dd.active").attr("data-line-size");
 	},
 	getFillOpacity:function(){
 		var fillOpacity = "0.0";
