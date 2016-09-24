@@ -3,6 +3,8 @@
 ## introduce
 See the demo [http://painter.crick.wang/](http://painter.crick.wang/)
 
+I write the code process in my blog [http://blog.crick.wang/](http://blog.crick.wang/categories/painter/)
+
 This is a drawing board. It is used by svgjs + html. 
 You can draw in the browser and sync show with the others.
 
