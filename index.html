@@ -372,6 +372,7 @@
             var elements = GlobalStatus.getPickeds();
             if (elements.length > 0) {
                 $(elements).each(function(){
+                    this
                     this.front();
                 });
             }
@@ -388,7 +389,13 @@
             var elements = GlobalStatus.getPickeds();
             if (elements.length > 0) {
                 $(elements).each(function(){
-                    this.backward();
+                    if (this.previous()) {
+                        //TODO 迭代 且使用白名单数组
+                        if (this.previous().type == "g") {
+                            this.backward();
+                        }
+                        this.backward();
+                    }
                 });
             }
         });
@@ -396,7 +403,12 @@
             var elements = GlobalStatus.getPickeds();
             if (elements.length > 0) {
                 $(elements).each(function(){
-                    this.forward();
+                    if (this.next()) {
+                        if (this.next().type == "g") {
+                            this.forward();
+                        }
+                        this.forward();
+                    }
                 });
             }
         });
