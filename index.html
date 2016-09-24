@@ -359,16 +359,46 @@
             currentDrawTool = new DrawTool.Polyline(svgDoc);
         });
         $("#tool_pencil").on("click", function() {
-            console.log("click");
             resetCurrentDrawTool();
             currentDrawTool = new DrawTool.Pencil(svgDoc);
             $("#svgPanel").css("cursor", "url(style/img/cur/tool_pencil.cur), auto");
         });
         $("#tool_pencil").on("dblclick", function() {
-            console.log("dblclick");
             resetCurrentDrawTool();
             currentDrawTool = new DrawTool.Pencil(svgDoc, 'T');
             $("#svgPanel").css("cursor", "url(style/img/cur/tool_pencil.cur), auto");
+        });
+        $("#tool_layer_front").on("click", function() {
+            var elements = GlobalStatus.getPickeds();
+            if (elements.length > 0) {
+                $(elements).each(function(){
+                    this.front();
+                });
+            }
+        });
+        $("#tool_layer_back").on("click", function() {
+            var elements = GlobalStatus.getPickeds();
+            if (elements.length > 0) {
+                $(elements).each(function(){
+                    this.back();
+                });
+            }
+        });
+        $("#tool_layer_backward").on("click", function() {
+            var elements = GlobalStatus.getPickeds();
+            if (elements.length > 0) {
+                $(elements).each(function(){
+                    this.backward();
+                });
+            }
+        });
+        $("#tool_layer_forward").on("click", function() {
+            var elements = GlobalStatus.getPickeds();
+            if (elements.length > 0) {
+                $(elements).each(function(){
+                    this.forward();
+                });
+            }
         });
         $("#tool_pick").on("click", function() {
             resetCurrentDrawTool();

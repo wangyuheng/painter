@@ -37,6 +37,8 @@
         drawing = false;
         if (element.attr("d").split(plotPrefix).length > 2) {
             element.pickable();
+        } else {
+            parent.removeElement(element);
         }
         return false;
     }

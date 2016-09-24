@@ -43,6 +43,8 @@
         if (event.button == 2) {
             if (element.attr("points").split(",").length > 2) {
                 element.pickable();
+            } else {
+                parent.removeElement(element);
             }
             document.oncontextmenu = function() {
                 return false;

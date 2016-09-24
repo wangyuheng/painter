@@ -35,6 +35,8 @@
         drawing = false;
         if (element.attr("r") > 0) {
             element.pickable();
+        } else {
+            parent.removeElement(element);
         }
         return false;
     }

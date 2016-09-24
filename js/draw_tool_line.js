@@ -36,6 +36,8 @@
         drawing = false;
         if (element.attr("x1") != element.attr("x2") && element.attr("y1") != element.attr("y2")) {
             element.pickable();
+        } else {
+            parent.removeElement(element);
         }
         return false;
     }

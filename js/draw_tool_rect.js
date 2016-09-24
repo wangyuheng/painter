@@ -46,6 +46,8 @@
         drawing = false;
         if (element.attr("width") > 0) {
             element.pickable();
+        } else {
+            parent.removeElement(element);
         }
         return false;
     }
@@ -59,6 +61,7 @@
 
     var Rect = function(parentEle) {
         parent = parentEle;
+        console.log(parent);
         svgDoc = parent.doc();
         DrawTool.init(svgDoc, listener);
         this.stop = function() {
