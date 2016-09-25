@@ -16,7 +16,7 @@
     SVG.extend(SVG.Element, {
         pickable: function(enabled) {
             var _ele = this;
-            elementList.push(_ele);
+            GlobalStatus.pushElements(_ele);
             var color = _ele._stroke;
             var width = _ele.attr("stroke-width");
             _ele.on("mouseover", function() {
@@ -28,6 +28,8 @@
                     $("#svgPanel").css("cursor", "pointer");
                 } else if (GlobalStatus.isPreFilled()) {
                     $("#svgPanel").css("cursor", "url(style/img/cur/tool_fill.cur), auto");
+                } else if (GlobalStatus.isRecycle()) {
+                    $("#svgPanel").css("cursor", "url(style/img/cur/tool_delete.cur), auto");
                 }
 
 
@@ -40,6 +42,8 @@
                     });
                     $("#svgPanel").css("cursor", "default");
                 } else if (GlobalStatus.isPreFilled()) {
+                    $("#svgPanel").css("cursor", "default");
+                } else if (GlobalStatus.isRecycle()) {
                     $("#svgPanel").css("cursor", "default");
                 }
 
@@ -64,6 +68,8 @@
                         _ele.handleBorder && _ele.handleBorder.hideShade(_ele);
                         GlobalStatus.removePicked(_ele);
                     }
+                } else if (GlobalStatus.isRecycle()) {
+                    _ele.remove();
                 }
             });
             return this;

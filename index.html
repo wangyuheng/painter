@@ -37,14 +37,14 @@
                                 <li id="tool_save"><img src="style/img/icon-1.png" alt="保存图片" title="保存图片 (Ctrl+s)" /></li>
                                 <li id="tool_undo"><img src="style/img/icon-2.png" alt="撤销" title="撤销 (Ctrl+z)" /></li>
                                 <li id="tool_redo"><img src="style/img/icon-3.png" alt="重做" title="重做 (Ctrl+y)" /></li>
-                                <li id="tool_delete"><img src="style/img/icon-4.png" alt="删除" title="删除 (Delete)" /></li>
+                                <li class="handle_btn" id="tool_delete"><img src="style/img/icon-4.png" alt="删除" title="删除 (Delete)" /></li>
                                 <li class="handle_btn" id="tool_pick"><img src="style/img/icon-18.png" alt="选择" title="选择" /></li>
                                 <li class="handle_btn" title="上传图片 (Ctrl+O)" id="tt">
                                     <img src="style/img/icon-5.png" alt="图片" title="图片" /></li>
                                 <li class="handle_btn" id="tool_pencil"><img src="style/img/icon-6.png" alt="铅笔" title="铅笔" /></li>
                                 <li class="handle_btn" id="tool_fill"><img src="style/img/icon-8.png" alt="喷枪" title="喷枪" /></li>
                             </ul>
-                            <div class="clear-screen" id="clear_all"><img src="style/img/icon-20.png" alt="" /></div>
+                            <div class="clear-screen" id="clear_all"><img src="style/img/icon-20.png" alt="清屏" /></div>
                         </div>
                         <p class="board-text">工具</p>
                     </div>
@@ -329,8 +329,6 @@
         var svgDoc = svgDraw.doc();
         var currentDrawTool = null;
 
-        var elementList = [];
-
         function resetCurrentDrawTool() {
             currentDrawTool && currentDrawTool.stop();
             $("#svgPanel").css("cursor", "default");
@@ -417,6 +415,14 @@
         });
         $("#tool_fill").on("click", function() {
             resetCurrentDrawTool();
+        });
+        $("#tool_delete").on("click", function() {
+            resetCurrentDrawTool();
+        });
+        $("#clear_all").on("click", function() {
+            $(GlobalStatus.getAllElements()).each(function(){
+                this.remove();
+            });
         });
 
         $(function() {

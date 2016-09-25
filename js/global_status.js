@@ -2,12 +2,16 @@ var GlobalStatus = {
 	defaultFontColor:"#0073c6",
 	defaultFillColor:"#ececec",
 	defaultLineSize:"2",
+	elementList : [],
 	pickedElementList: [],
 	isPicked:function(){
 		return $("#tool_pick").hasClass("active");
 	},
 	isPreFilled:function(){
 		return $("#tool_fill").hasClass("active");
+	},
+	isRecycle: function(){
+		return $("#tool_delete").hasClass("active");
 	},
 	getFontColor:function(){
 		return $("#font_color").attr("data-color");
@@ -33,6 +37,15 @@ var GlobalStatus = {
 	},
 	getPickeds: function(){
 		return this.pickedElementList;
+	},
+	pushElements: function(o){
+		return this.elementList.push(o);
+	},
+	removeElements: function(o) {
+		return this.elementList.remove(o);
+	},
+	getAllElements: function(){
+		return this.elementList;
 	}
 }
 
