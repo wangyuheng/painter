@@ -58,18 +58,22 @@
                     }
 
                 } else if (GlobalStatus.isPicked()) {
-                    if (!_ele.attr("picked")) {
-                        _ele.attr("picked", true);
-                        _ele.handleBorder = _ele.handleBorder || new HandleBorder(svgDoc);
-                        _ele.handleBorder.showShade(_ele);
-                        GlobalStatus.pushPicked(_ele);
-                    } else {
-                        _ele.attr("picked", null);
-                        _ele.handleBorder && _ele.handleBorder.hideShade(_ele);
-                        GlobalStatus.removePicked(_ele);
-                    }
+                    _ele.fire("pick");
                 } else if (GlobalStatus.isRecycle()) {
                     _ele.remove();
+                }
+            });
+            _ele.on("pick", function() {
+                if (_ele.attr("picked")) {
+                    _ele.attr("picked", null);
+                    _ele.handleBorder && _ele.handleBorder.hideShade(_ele);
+                    GlobalStatus.removePicked(_ele);
+                } else {
+                    _ele.attr("picked", true);
+                    _ele.handleBorder = _ele.handleBorder || new HandleBorder(svgDoc);
+                    _ele.handleBorder.showShade(_ele);
+                    GlobalStatus.pushPicked(_ele);
+
                 }
             });
             return this;

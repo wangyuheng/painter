@@ -320,6 +320,7 @@
     <script src="js/draw.tool.circle.js"></script>
     <script src="js/draw.tool.line.js"></script>
     <script src="js/draw.tool.polyline.js"></script>
+    <script src="js/draw.tool.pick.js"></script>
     <script src="js/handle.border.js"></script>
     <script src="js/mouse.action.js"></script>
 
@@ -369,6 +370,10 @@
             currentDrawTool = new DrawTool.Pencil(svgDoc, 'T');
             $("#svgPanel").css("cursor", "url(style/img/cur/tool_pencil.cur), auto");
         });
+        $("#tool_pick").on("click", function() {
+            resetCurrentDrawTool();
+            currentDrawTool = new DrawTool.Pick(svgDoc);
+        });
         $("#tool_layer_front").on("click", function() {
             var elements = GlobalStatus.getPickeds();
             if (elements.length > 0) {
@@ -411,9 +416,6 @@
                     }
                 });
             }
-        });
-        $("#tool_pick").on("click", function() {
-            resetCurrentDrawTool();
         });
         $("#tool_fill").on("click", function() {
             resetCurrentDrawTool();
