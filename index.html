@@ -213,8 +213,10 @@
         </div>
     </div>
     <script src="js/jquery/jquery.js"></script>
-    <script src="js/spectrum/spectrum.js"></script>
     <link rel="stylesheet" href="js/spectrum/spectrum.css">
+    <script src="js/spectrum/spectrum.js"></script>
+    <link rel="stylesheet" href="js/jquery-simple-context-menu/jquery.contextmenu.css">
+    <script src="js/jquery-simple-context-menu/jquery.contextmenu.js"></script>
     <script type="text/javascript">
         $(function() {
 
@@ -309,16 +311,17 @@
 
     <script src="js/core.js"></script>
     <script src="js/svg/svg.js"></script>
-    <script src="js/global_status.js"></script>
-    <script src="js/svg_doc_extension.js"></script>
-    <script src="js/draw_tool.js"></script>
-    <script src="js/draw_tool_rect.js"></script>
-    <script src="js/draw_tool_pencil.js"></script>
-    <script src="js/draw_tool_ellipse.js"></script>
-    <script src="js/draw_tool_circle.js"></script>
-    <script src="js/draw_tool_line.js"></script>
-    <script src="js/draw_tool_polyline.js"></script>
-    <script src="js/handle_border.js"></script>
+    <script src="js/global.status.js"></script>
+    <script src="js/svg.doc.extension.js"></script>
+    <script src="js/draw.tool.js"></script>
+    <script src="js/draw.tool.rect.js"></script>
+    <script src="js/draw.tool.pencil.js"></script>
+    <script src="js/draw.tool.ellipse.js"></script>
+    <script src="js/draw.tool.circle.js"></script>
+    <script src="js/draw.tool.line.js"></script>
+    <script src="js/draw.tool.polyline.js"></script>
+    <script src="js/handle.border.js"></script>
+    <script src="js/mouse.action.js"></script>
 
     <script type="text/javascript">
         if (!SVG.supported) {
@@ -370,7 +373,6 @@
             var elements = GlobalStatus.getPickeds();
             if (elements.length > 0) {
                 $(elements).each(function(){
-                    this
                     this.front();
                 });
             }
