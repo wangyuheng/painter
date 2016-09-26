@@ -63,7 +63,7 @@
                 }
             })
         }
-        parent.removeElement(element);
+        element && element.remove();
         return false;
     }
 
