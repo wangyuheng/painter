@@ -20,18 +20,21 @@
             var color = _ele._stroke;
             var width = _ele.attr("stroke-width");
             _ele.on("mouseover", function() {
+                console.log("element mouseover");
                 if (GlobalStatus.isPicked()) {
                     _ele.stroke({
                         width: width * 2,
                         color: 'red'
                     });
                     $("#svgPanel").css("cursor", "pointer");
+                    _ele.draggable();
+                    return false;
                 } else if (GlobalStatus.isPreFilled()) {
                     $("#svgPanel").css("cursor", "url(style/img/cur/tool_fill.cur), auto");
                 } else if (GlobalStatus.isRecycle()) {
                     $("#svgPanel").css("cursor", "url(style/img/cur/tool_delete.cur), auto");
                 }
-                return false;
+                _ele.draggable(false);
 
             });
             _ele.on("mouseout", function() {
@@ -64,10 +67,26 @@
                     } else {
                         _ele.fire("pick");
                     }
-                    
+
                 } else if (GlobalStatus.isRecycle()) {
                     _ele.remove();
                 }
+            });
+            _ele.on("mousedown", function(event) {
+                console.log("element mousedown");
+                if (GlobalStatus.isPicked()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    return false;
+                }
+            });
+
+            _ele.on("dragend", function(event) {
+                console.log("element dragend");
+                _ele.fire("unPick");
+            });
+            _ele.on("beforedrag", function(event) {
+                console.log("element beforedrag");
             });
             _ele.on("pick", function() {
                 console.log("pick");
@@ -80,7 +99,6 @@
                 console.log("unPick");
                 _ele.attr("picked", null);
                 _ele.handleBorder && _ele.handleBorder.hideShade(_ele);
-                _ele.draggable(false);
                 GlobalStatus.removePicked(_ele);
 
             });
