@@ -11,13 +11,16 @@
 
     function mousedown(event) {
         console.log('pencil mousedown');
-        drawing = true;
-        startPoint = svgDoc.transformPoint(event);
-        plot = 'M' + startPoint.x + ' ' + startPoint.y;
-        element = parent.path(plot).fill(GlobalStatus.getFillColor()).style("fill-opacity", GlobalStatus.getFillOpacity()).stroke({
-            width: GlobalStatus.getLineSize(),
-            color: GlobalStatus.getFontColor()
-        });
+        if (!drawing) {
+            drawing = true;
+            startPoint = svgDoc.transformPoint(event);
+            plot = 'M' + startPoint.x + ' ' + startPoint.y;
+            element = parent.path(plot).fill(GlobalStatus.getFillColor()).style("fill-opacity", GlobalStatus.getFillOpacity()).stroke({
+                width: GlobalStatus.getLineSize(),
+                color: GlobalStatus.getFontColor()
+            });
+        }
+
         return false;
     }
 
@@ -34,11 +37,13 @@
 
     function mouseup(event) {
         console.log('pencil mouseup ' + element);
-        drawing = false;
-        if (element.attr("d").split(plotPrefix).length > 2) {
-            element.pickable();
-        } else {
-            parent.removeElement(element);
+        if (drawing) {
+            drawing = false;
+            if (element.attr("d").split(plotPrefix).length > 2) {
+                element.pickable();
+            } else {
+                parent.removeElement(element);
+            }
         }
         return false;
     }

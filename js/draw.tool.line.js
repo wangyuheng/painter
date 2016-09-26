@@ -7,12 +7,14 @@
 
     function mousedown(event) {
         console.log('line mousedown');
-        drawing = true;
-        startPoint = svgDoc.transformPoint(event);
-        element = parent.line(startPoint.x, startPoint.y, startPoint.x, startPoint.y).fill(GlobalStatus.getFillColor()).style("fill-opacity", GlobalStatus.getFillOpacity()).stroke({
-            width: GlobalStatus.getLineSize(),
-            color: GlobalStatus.getFontColor()
-        });
+        if (!drawing) {
+            drawing = true;
+            startPoint = svgDoc.transformPoint(event);
+            element = parent.line(startPoint.x, startPoint.y, startPoint.x, startPoint.y).fill(GlobalStatus.getFillColor()).style("fill-opacity", GlobalStatus.getFillOpacity()).stroke({
+                width: GlobalStatus.getLineSize(),
+                color: GlobalStatus.getFontColor()
+            });
+        }
         return false;
     }
 
@@ -33,11 +35,13 @@
 
     function mouseup(event) {
         console.log('line mouseup ' + element);
-        drawing = false;
-        if (element.attr("x1") != element.attr("x2") && element.attr("y1") != element.attr("y2")) {
-            element.pickable();
-        } else {
-            parent.removeElement(element);
+        if (drawing) {
+            drawing = false;
+            if (element.attr("x1") != element.attr("x2") && element.attr("y1") != element.attr("y2")) {
+                element.pickable();
+            } else {
+                parent.removeElement(element);
+            }
         }
         return false;
     }

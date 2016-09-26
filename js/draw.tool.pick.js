@@ -7,21 +7,23 @@
 
     function mousedown(event) {
         console.log('pick mousedown');
-        drawing = true;
-        startPoint = svgDoc.transformPoint(event);
-        element = parent.rect(0, 0).fill(GlobalStatus.getFillColor()).style({
-            "fill-opacity": GlobalStatus.getFillOpacity(),
-            "stroke-dasharray": "13 10"
-        }).stroke({
-            width: "1",
-            color: "grey"
-        });
+        if (!drawing) {
+            drawing = true;
+            startPoint = svgDoc.transformPoint(event);
+            element = parent.rect(0, 0).style({
+                "fill-opacity": "0.0",
+                "stroke-dasharray": "10"
+            }).stroke({
+                width: "1",
+                color: "grey"
+            });
+        }
         return false;
     }
 
     function mousemove(event) {
         console.log('pick mousemove');
-        if (drawing) {
+        if (element && drawing) {
             var svgPoint = svgDoc.transformPoint(event);
             var x = svgPoint.x;
             var y = svgPoint.y;
@@ -46,24 +48,28 @@
 
     function mouseup(event) {
         console.log('pick mouseup ' + element);
-        drawing = false;
-        if (element.attr("width") > 0) {
-            var sx = element.x();
-            var ex = element.x() + element.width();
-            var sy = element.y();
-            var ey = element.y() + element.height();
-            $(GlobalStatus.getAllElements()).each(function() {
-                console.log(this.x(), this.y(), sx < this.x() && this.x() < ex && sy < this.y() && this.y() < ey);
-                if (sx < this.x() && this.x() < ex && sy < this.y() && this.y() < ey) {
-                    if (!this.attr("picked")) {
-                        this.fire("pick");
+        if (drawing) {
+            drawing = false;
+            if (element && element.attr("width") > 20) {
+                var sx = element.x();
+                var ex = element.x() + element.width();
+                var sy = element.y();
+                var ey = element.y() + element.height();
+                $(GlobalStatus.getAllElements()).each(function() {
+                    console.log(this.x(), this.y(), sx < this.x() && this.x() < ex && sy < this.y() && this.y() < ey);
+                    if (sx < this.x() && this.x() < ex && sy < this.y() && this.y() < ey) {
+                        if (!this.attr("picked")) {
+                            this.fire("pick");
+                        }
+                    } else if (this.attr("picked")) {
+                        this.fire("unPick");
                     }
-                } else if (this.attr("picked")) {
-                    this.fire("pick");
-                }
-            })
+                })
+            }
+            element && element.remove();
         }
-        element && element.remove();
+
+
         return false;
     }
 

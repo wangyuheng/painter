@@ -7,12 +7,15 @@
 
     function mousedown(event) {
         console.log('ellipse mousedown');
-        drawing = true;
-        startPoint = svgDoc.transformPoint(event);
-        element = parent.ellipse(0, 0).move(startPoint.x, startPoint.y).fill(GlobalStatus.getFillColor()).style("fill-opacity", GlobalStatus.getFillOpacity()).stroke({
-            width: GlobalStatus.getLineSize(),
-            color: GlobalStatus.getFontColor()
-        });
+        if (!drawing) {
+            drawing = true;
+            startPoint = svgDoc.transformPoint(event);
+            element = parent.ellipse(0, 0).move(startPoint.x, startPoint.y).fill(GlobalStatus.getFillColor()).style("fill-opacity", GlobalStatus.getFillOpacity()).stroke({
+                width: GlobalStatus.getLineSize(),
+                color: GlobalStatus.getFontColor()
+            });
+        }
+
         return false;
     }
 
@@ -32,11 +35,13 @@
 
     function mouseup(event) {
         console.log('ellipse mouseup ' + element);
-        drawing = false;
-        if (element.attr("rx") > 0 && element.attr("ry") > 0) {
-            element.pickable();
-        } else {
-            parent.removeElement(element);
+        if (drawing) {
+            drawing = false;
+            if (element.attr("rx") > 0 && element.attr("ry") > 0) {
+                element.pickable();
+            } else {
+                parent.removeElement(element);
+            }
         }
         return false;
     }
