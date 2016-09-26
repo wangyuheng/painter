@@ -14,4 +14,4 @@ You can draw in the browser and sync show with the others.
 - [spectrum.js-1.8.0](https://github.com/bgrins/spectrum) custom color
 - [svg.js-2.3.4](https://github.com/wout/svg.js) draw by svg
 - [jquery-simple-context-menu.js-1.3.2](https://github.com/joewalnes/jquery-simple-context-menu) listen contextmenu
-
+- [svg.draggable.js-2.2.1](https://github.com/wout/svg.draggable.js) drag event
