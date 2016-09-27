@@ -81,13 +81,13 @@
 
 
     var Pick = function(parentEle) {
-        parent = parentEle;
-        console.log(parent);
-        svgDoc = parent.doc();
-        DrawTool.init(svgDoc, listener);
-        this.stop = function() {
-            DrawTool.stop(svgDoc, listener);
-        };
+        // parent = parentEle;
+        // console.log(parent);
+        // svgDoc = parent.doc();
+        // DrawTool.init(svgDoc, listener);
+        // this.stop = function() {
+        //     DrawTool.stop(svgDoc, listener);
+        // };
     };
 
     this.DrawTool.Pick = Pick;

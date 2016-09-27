@@ -3,7 +3,6 @@
     var parent = null;
     var drawing = false;
     var element = null;
-    var startPoint = null;
 
     var points = [];
 

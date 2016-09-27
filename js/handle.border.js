@@ -1,6 +1,6 @@
 (function() {
 
-	var sbw = 6;
+	var sbw = 8;
 	var bw = {
 		width: 1
 	};
@@ -25,21 +25,30 @@
 
 		_this.blockGroup = _this.transformerGroup.group();
 
-		_this.rectLT = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
-			'_operate-type': 'scale',
-			'_direction': 'lt'
+		_this.rectLeftTop = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
+			'_direction': 'left-top'
 		});
-		_this.rectLB = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
-			'_operate-type': 'scale',
-			'_direction': 'lb'
+		_this.rectLeftBottom = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
+			'_direction': 'left-bottom'
 		});
-		_this.rectRT = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
-			'_operate-type': 'scale',
-			'_direction': 'rt'
+		_this.rectRightTop = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
+			'_direction': 'right-top'
 		});
-		_this.rectRB = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
-			'_operate-type': 'scale',
-			'_direction': 'rb'
+		_this.rectRightBottom = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
+			'_direction': 'right-bottom'
+		});
+
+		_this.rectLeftCenter = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
+			'_direction': 'left-center'
+		});
+		_this.rectRightCenter = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
+			'_direction': 'right-center'
+		});
+		_this.rectTopCenter = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
+			'_direction': 'top-center'
+		});
+		_this.rectBottomCenter = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
+			'_direction': 'bottom-center'
 		});
 
 	};
@@ -50,13 +59,15 @@
 		var x2 = bbox.x2;
 		var y2 = bbox.y2;
 
+		this.rectLeftTop.move(x1 - sbw, y1 - sbw);
+		this.rectLeftBottom.move(x1 - sbw, y2);
+		this.rectRightTop.move(x2, y1 - sbw);
+		this.rectRightBottom.move(x2, y2);
 
-		this.rectLT.move(x1 - sbw, y1 - sbw);
-		this.rectLB.move(x1 - sbw, y2);
-		this.rectRT.move(x2, y1 - sbw);
-		this.rectRB.move(x2, y2);
-
-		this.blockGroup.matrix(matrix);
+		this.rectLeftCenter.move(x1 - sbw, (y2 + y1 - sbw) / 2);
+		this.rectRightCenter.move(x2, (y2 + y1 - sbw) / 2);
+		this.rectTopCenter.move((x2 + x1 - sbw) / 2, y1 - sbw);
+		this.rectBottomCenter.move((x2 + x1 - sbw) / 2, y2);
 
 	};
 
