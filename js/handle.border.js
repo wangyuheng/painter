@@ -25,17 +25,49 @@
 
 		_this.blockGroup = _this.handleBorderGroup.group();
 
-		_this.rectLeftTop = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth);
-		_this.rectLeftBottom = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth);
-		_this.rectRightTop = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth);
-		_this.rectRightBottom = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth);
+		_this.rectLeftTop = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
+		_this.rectLeftBottom = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
+		_this.rectRightTop = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
+		_this.rectRightBottom = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
 
-		_this.rectLeftCenter = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth);
-		_this.rectRightCenter = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth);
-		_this.rectTopCenter = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth);
-		_this.rectBottomCenter = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth);
+		_this.rectLeftCenter = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
+		_this.rectRightCenter = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
+		_this.rectTopCenter = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
+		_this.rectBottomCenter = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
+
+
+		var lastPoint = null;
+		var xLeft;
+		_this.rectLeftCenter.on("dragstart", function(event) {
+			lastPoint = event.detail.p;
+			xLeft = 1;
+		});
+
+		_this.rectLeftCenter.on("dragmove", function() {
+			var currPoint = event.detail.p;
+			var currPoint = event.detail.p;
+			var dx = currPoint.x - lastPoint.x;
+
+			var ele = _this.currentElement;
+			var width = ele.width() - xLeft * dx;
+
+			if (width > 0) {
+				var newX = ele.x() + xLeft * dx;
+				ele.x(newX).width(width);
+			} else {
+				//invert
+				xLeft = -xLeft;
+				ele.x(ele.bbox().x2).width(-width).matrix(new SVG.Matrix(ele).flip('x', ele.bbox().cx));
+			}
+
+			lastPoint = currPoint;
+		});
+		_this.rectLeftCenter.on("afterdragmove", function() {
+			_this.rebound(_this.currentElement.bbox());
+		});
 
 	};
+
 
 	HandleBorder.prototype.rebound = function(bbox) {
 		var _this = this;
@@ -54,6 +86,7 @@
 		_this.rectTopCenter.move((x2 + x1 - sideLength) / 2, y1 - sideLength);
 		_this.rectBottomCenter.move((x2 + x1 - sideLength) / 2, y2);
 
+		this.blockGroup.matrix(new SVG.Matrix(_this.currentElement));
 	};
 
 	HandleBorder.prototype.show = function(svgEle) {

@@ -174,6 +174,7 @@
     }
     
     // so we can use it in the end-method, too
+    this.el.fire('afterdragmove', { event: e, p: p, m: this.m, handler: this });
     return p
   }
 
