@@ -92,7 +92,7 @@
                 console.log("pick");
                 _ele.attr("picked", true);
                 _ele.handleBorder = _ele.handleBorder || new HandleBorder(svgDoc);
-                _ele.handleBorder.showShade(_ele);
+                _ele.handleBorder.show(_ele);
                 GlobalStatus.pushPicked(_ele);
             });
             _ele.on("unPick", function() {

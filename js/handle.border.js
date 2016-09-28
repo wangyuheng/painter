@@ -1,7 +1,7 @@
 (function() {
 
-	var sbw = 8;
-	var bw = {
+	var sideLength = 8;
+	var sideWidth = {
 		width: 1
 	};
 
@@ -13,76 +13,61 @@
 		constructor: HandleBorder,
 		init: function(svgDoc) {
 			this.currentSvgDoc = svgDoc;
-			this.createShade();
+			this.create();
 			return this;
 		},
 	};
 
-	HandleBorder.prototype.createShade = function() {
+	HandleBorder.prototype.create = function() {
 		var _this = this;
 
-		_this.transformerGroup = _this.currentSvgDoc.group();
+		_this.handleBorderGroup = _this.currentSvgDoc.group();
 
-		_this.blockGroup = _this.transformerGroup.group();
+		_this.blockGroup = _this.handleBorderGroup.group();
 
-		_this.rectLeftTop = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
-			'_direction': 'left-top'
-		});
-		_this.rectLeftBottom = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
-			'_direction': 'left-bottom'
-		});
-		_this.rectRightTop = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
-			'_direction': 'right-top'
-		});
-		_this.rectRightBottom = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
-			'_direction': 'right-bottom'
-		});
+		_this.rectLeftTop = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth);
+		_this.rectLeftBottom = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth);
+		_this.rectRightTop = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth);
+		_this.rectRightBottom = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth);
 
-		_this.rectLeftCenter = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
-			'_direction': 'left-center'
-		});
-		_this.rectRightCenter = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
-			'_direction': 'right-center'
-		});
-		_this.rectTopCenter = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
-			'_direction': 'top-center'
-		});
-		_this.rectBottomCenter = this.blockGroup.rect(sbw, sbw).stroke(bw).attr({
-			'_direction': 'bottom-center'
-		});
+		_this.rectLeftCenter = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth);
+		_this.rectRightCenter = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth);
+		_this.rectTopCenter = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth);
+		_this.rectBottomCenter = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth);
 
 	};
 
-	HandleBorder.prototype.judgeShade = function(bbox, matrix) {
+	HandleBorder.prototype.rebound = function(bbox) {
+		var _this = this;
+
 		var x1 = bbox.x;
 		var y1 = bbox.y;
 		var x2 = bbox.x2;
 		var y2 = bbox.y2;
+		_this.rectLeftTop.move(x1 - sideLength, y1 - sideLength);
+		_this.rectLeftBottom.move(x1 - sideLength, y2);
+		_this.rectRightTop.move(x2, y1 - sideLength);
+		_this.rectRightBottom.move(x2, y2);
 
-		this.rectLeftTop.move(x1 - sbw, y1 - sbw);
-		this.rectLeftBottom.move(x1 - sbw, y2);
-		this.rectRightTop.move(x2, y1 - sbw);
-		this.rectRightBottom.move(x2, y2);
-
-		this.rectLeftCenter.move(x1 - sbw, (y2 + y1 - sbw) / 2);
-		this.rectRightCenter.move(x2, (y2 + y1 - sbw) / 2);
-		this.rectTopCenter.move((x2 + x1 - sbw) / 2, y1 - sbw);
-		this.rectBottomCenter.move((x2 + x1 - sbw) / 2, y2);
+		_this.rectLeftCenter.move(x1 - sideLength, (y2 + y1 - sideLength) / 2);
+		_this.rectRightCenter.move(x2, (y2 + y1 - sideLength) / 2);
+		_this.rectTopCenter.move((x2 + x1 - sideLength) / 2, y1 - sideLength);
+		_this.rectBottomCenter.move((x2 + x1 - sideLength) / 2, y2);
 
 	};
 
-	HandleBorder.prototype.showShade = function(svgEle) {
+	HandleBorder.prototype.show = function(svgEle) {
 		if (!svgEle) {
 			return;
 		}
 		this.currentElement = svgEle;
-		this.transformerGroup.show();
+		this.handleBorderGroup.show();
 
-		this.judgeShade(svgEle.bbox(), new SVG.Matrix(svgEle));
+		this.rebound(svgEle.bbox());
 	};
 
-	HandleBorder.prototype.hideShade = function() {
-		this.transformerGroup.hide();
+	HandleBorder.prototype.hide = function() {
+		this.handleBorderGroup.hide();
 	};
 
 	this.HandleBorder = HandleBorder;
