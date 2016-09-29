@@ -25,47 +25,135 @@
 
 		_this.blockGroup = _this.handleBorderGroup.group();
 
-		_this.rectLeftTop = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
-		_this.rectLeftBottom = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
-		_this.rectRightTop = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
-		_this.rectRightBottom = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
-
 		_this.rectLeftCenter = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
 		_this.rectRightCenter = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
 		_this.rectTopCenter = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
 		_this.rectBottomCenter = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
 
+		_this.rectLeftTop = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
+		_this.rectLeftBottom = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
+		_this.rectRightTop = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
+		_this.rectRightBottom = this.blockGroup.rect(sideLength, sideLength).stroke(sideWidth).draggable();
 
-		var lastPoint = null;
-		var xLeft;
-		_this.rectLeftCenter.on("dragstart", function(event) {
-			lastPoint = event.detail.p;
-			xLeft = 1;
+		// rectLeftCenter
+		_this.rectLeftCenter.on("dragstart", function() {
+			_this.currentElement.fire("leftCenterDragStart", {
+				currPoint: event.detail.p
+			});
 		});
-
 		_this.rectLeftCenter.on("dragmove", function() {
-			var currPoint = event.detail.p;
-			var currPoint = event.detail.p;
-			var dx = currPoint.x - lastPoint.x;
-
-			var ele = _this.currentElement;
-			var width = ele.width() - xLeft * dx;
-
-			if (width > 0) {
-				var newX = ele.x() + xLeft * dx;
-				ele.x(newX).width(width);
-			} else {
-				//invert
-				xLeft = -xLeft;
-				ele.x(ele.bbox().x2).width(-width).matrix(new SVG.Matrix(ele).flip('x', ele.bbox().cx));
-			}
-
-			lastPoint = currPoint;
+			_this.currentElement.fire("leftCenterDragMove", {
+				currPoint: event.detail.p
+			});
 		});
 		_this.rectLeftCenter.on("afterdragmove", function() {
 			_this.rebound(_this.currentElement.bbox());
 		});
+		// rectRightCenter
+		_this.rectRightCenter.on("dragstart", function() {
+			_this.currentElement.fire("rightCenterDragStart", {
+				currPoint: event.detail.p
+			});
+		});
+		_this.rectRightCenter.on("dragmove", function() {
+			_this.currentElement.fire("rightCenterDragMove", {
+				currPoint: event.detail.p
+			});
+		});
+		_this.rectRightCenter.on("afterdragmove", function() {
+			_this.rebound(_this.currentElement.bbox());
+		});
 
+		// rectTopCenter		
+		_this.rectTopCenter.on("dragstart", function() {
+			_this.currentElement.fire("topCenterDragStart", {
+				currPoint: event.detail.p
+			});
+		});
+		_this.rectTopCenter.on("dragmove", function() {
+			_this.currentElement.fire("topCenterDragMove", {
+				currPoint: event.detail.p
+			});
+		});
+		_this.rectTopCenter.on("afterdragmove", function() {
+			_this.rebound(_this.currentElement.bbox());
+		});
+
+
+		// rectBottomCenter		
+		_this.rectBottomCenter.on("dragstart", function() {
+			_this.currentElement.fire("bottomCenterDragStart", {
+				currPoint: event.detail.p
+			});
+		});
+		_this.rectBottomCenter.on("dragmove", function() {
+			_this.currentElement.fire("bottomCenterDragMove", {
+				currPoint: event.detail.p
+			});
+		});
+		_this.rectBottomCenter.on("afterdragmove", function() {
+			_this.rebound(_this.currentElement.bbox());
+		});
+
+		// rectLeftTop	
+		_this.rectLeftTop.on("dragstart", function() {
+			_this.currentElement.fire("leftTopDragStart", {
+				currPoint: event.detail.p
+			});
+		});
+		_this.rectLeftTop.on("dragmove", function() {
+			_this.currentElement.fire("leftTopDragMove", {
+				currPoint: event.detail.p
+			});
+		});
+		_this.rectLeftTop.on("afterdragmove", function() {
+			_this.rebound(_this.currentElement.bbox());
+		});
+
+		// rectLeftBottom	
+		_this.rectLeftBottom.on("dragstart", function() {
+			_this.currentElement.fire("leftBottomDragStart", {
+				currPoint: event.detail.p
+			});
+		});
+		_this.rectLeftBottom.on("dragmove", function() {
+			_this.currentElement.fire("leftBottomDragMove", {
+				currPoint: event.detail.p
+			});
+		});
+		_this.rectLeftBottom.on("afterdragmove", function() {
+			_this.rebound(_this.currentElement.bbox());
+		});
+
+		// rectRightTop	
+		_this.rectRightTop.on("dragstart", function() {
+			_this.currentElement.fire("rightTopDragStart", {
+				currPoint: event.detail.p
+			});
+		});
+		_this.rectRightTop.on("dragmove", function() {
+			_this.currentElement.fire("rightTopDragMove", {
+				currPoint: event.detail.p
+			});
+		});
+		_this.rectRightTop.on("afterdragmove", function() {
+			_this.rebound(_this.currentElement.bbox());
+		});
+
+		// rectRightBottom	
+		_this.rectRightBottom.on("dragstart", function() {
+			_this.currentElement.fire("rightBottomDragStart", {
+				currPoint: event.detail.p
+			});
+		});
+		_this.rectRightBottom.on("dragmove", function() {
+			_this.currentElement.fire("rightBottomDragMove", {
+				currPoint: event.detail.p
+			});
+		});
+		_this.rectRightBottom.on("afterdragmove", function() {
+			_this.rebound(_this.currentElement.bbox());
+		});
 	};
 
 
@@ -94,8 +182,8 @@
 			return;
 		}
 		this.currentElement = svgEle;
+		HandleBorderListener(this.currentElement);
 		this.handleBorderGroup.show();
-
 		this.rebound(svgEle.bbox());
 	};
 
