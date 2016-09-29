@@ -19,6 +19,7 @@
             GlobalStatus.pushElements(_ele);
             var color = _ele._stroke;
             var width = _ele.attr("stroke-width");
+            _ele.dragStartPoint = null;
             _ele.on("mouseover", function() {
                 console.log("element mouseover");
                 if (GlobalStatus.isPicked()) {
@@ -74,19 +75,28 @@
             });
             _ele.on("mousedown", function(event) {
                 console.log("element mousedown");
-                if (GlobalStatus.isPicked()) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    return false;
-                }
             });
 
             _ele.on("dragend", function(event) {
                 console.log("element dragend");
-                _ele.fire("unPick");
+                if (_ele.dragStartPoint.x == event.detail.p.x && _ele.dragStartPoint.y == event.detail.p.y) {
+
+                } else {
+                    _ele.fire("unPick");
+                }
             });
             _ele.on("beforedrag", function(event) {
                 console.log("element beforedrag");
+            });
+            _ele.on("afterdragmove", function(event) {
+                console.log("element afterdragmove");
+            });
+            _ele.on("dragstart", function(event) {
+                console.log("element dragstart");
+                _ele.dragStartPoint = event.detail.p;
+            });
+            _ele.on("dragmove", function(event) {
+                console.log("element dragmove");
             });
             _ele.on("pick", function() {
                 console.log("pick");
@@ -98,7 +108,7 @@
             _ele.on("unPick", function() {
                 console.log("unPick");
                 _ele.attr("picked", null);
-                _ele.handleBorder && _ele.handleBorder.hideShade(_ele);
+                _ele.handleBorder && _ele.handleBorder.hide(_ele);
                 GlobalStatus.removePicked(_ele);
 
             });

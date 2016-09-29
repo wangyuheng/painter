@@ -336,6 +336,7 @@
 
         function resetCurrentDrawTool() {
             currentDrawTool && currentDrawTool.stop();
+            GlobalStatus.unPickAll();
             $("#svgPanel").css("cursor", "default");
         }
 
@@ -426,6 +427,7 @@
         });
         $("#clear_all").on("click", function() {
             $(GlobalStatus.getAllElements()).each(function(){
+                this.handleBorder && this.handleBorder.hide()
                 this.remove();
             });
         });
