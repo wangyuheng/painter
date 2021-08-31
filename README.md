@@ -1,9 +1,9 @@
 # painter
 
 ## introduce
-See the demo [http://painter.crick.wang/](http://painter.crick.wang/)
+See the demo [http://painter.yuheng.wang/](http://painter.yuheng.wang/)
 
-I write the code process in my blog [http://blog.crick.wang/](http://blog.crick.wang/categories/painter/)
+I write the code process in my blog [http://blog.yuheng.wang/](http://blog.yuheng.wang/categories/painter/)
 
 This is a drawing board. It is used by svgjs + html. 
 You can draw in the browser and sync show with the others.
